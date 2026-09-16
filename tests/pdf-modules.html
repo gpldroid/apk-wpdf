@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WPDF PDF Modules Smoke Test</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
+    #status { white-space: pre-wrap; padding: 16px; border: 1px solid #ddd; border-radius: 10px; }
+    .ok { color: #166534; }
+    .fail { color: #991b1b; }
+  </style>
+</head>
+<body>
+  <h1>WPDF PDF Modules Smoke Test</h1>
+  <p>This page exercises the extracted PDF module boundary without touching the production runtime.</p>
+  <div id="status">Running tests…</div>
+
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script type="module">
+    import { merge } from '../assets/js/pdf/merge.js';
+    import { extractPages, splitEachPage } from '../assets/js/pdf/split.js';
+    import { deletePages, reorderPages } from '../assets/js/pdf/edit.js';
+    import { addPageNumbers } from '../assets/js/pdf/numbers.js';
+    import { imagesToPdf } from '../assets/js/pdf/images.js';
+
+    const status = document.getElementById('status');
+    const lines = [];
+
+    function pass(name) {
+      lines.push(`✓ ${name}`);
+      status.className = 'ok';
+      status.textContent = lines.join('\n');
+    }
+
+    function fail(error) {
+      lines.push(`✗ ${error.message || error}`);
+      status.className = 'fail';
+      status.textContent = lines.join('\n');
+      console.error(error);
+    }
+
+    async function makePdf(pageCount) {
+      const pdf = await PDFLib.PDFDocument.create();
+      for (let i = 0; i < pageCount; i++) pdf.addPage([300, 400]);
+      return new File([await pdf.save()], `sample-${pageCount}.pdf`, { type: 'application/pdf' });
+    }
+
+    async function run() {
+      const first = await makePdf(2);
+      const second = await makePdf(1);
+
+      const merged = await merge([first, second]);
+      const mergedDoc = await PDFLib.PDFDocument.load(merged);
+      if (mergedDoc.getPageCount() !== 3) throw new Error('Merge should create 3 pages.');
+      pass('merge: combines 2 + 1 pages');
+
+      const extracted = await extractPages(first, '2');
+      const extractedDoc = await PDFLib.PDFDocument.load(extracted);
+      if (extractedDoc.getPageCount() !== 1) throw new Error('Extract should create 1 page.');
+      pass('split: extracts a selected page');
+
+      const split = await splitEachPage(first);
+      if (split.length !== 2) throw new Error('Split-each-page should return 2 files.');
+      pass('split: creates one PDF per page');
+
+      const deleted = await deletePages(first, [0]);
+      const deletedDoc = await PDFLib.PDFDocument.load(deleted);
+      if (deletedDoc.getPageCount() !== 1) throw new Error('Delete should leave 1 page.');
+      pass('edit: deletes selected pages');
+
+      const reordered = await reorderPages(first, [1, 0]);
+      const reorderedDoc = await PDFLib.PDFDocument.load(reordered);
+      if (reorderedDoc.getPageCount() !== 2) throw new Error('Reorder should preserve 2 pages.');
+      pass('edit: reorders pages');
+
+      const numbered = await addPageNumbers(first, 'bottom-center');
+      const numberedDoc = await PDFLib.PDFDocument.load(numbered);
+      if (numberedDoc.getPageCount() !== 2) throw new Error('Numbering should preserve 2 pages.');
+      pass('numbers: adds page numbers without changing page count');
+
+      const png = new File([new Uint8Array([
+        137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,
+        0,0,0,1,0,0,0,1,8,6,0,0,0,31,21,196,137,
+        0,0,0,13,73,68,65,84,120,156,99,248,207,192,240,31,
+        0,3,3,1,0,24,221,141,24,0,0,0,0,73,69,78,68,174,66,96,130
+      ])], 'pixel.png', { type: 'image/png' });
+      const imagePdf = await imagesToPdf([png]);
+      const imageDoc = await PDFLib.PDFDocument.load(imagePdf);
+      if (imageDoc.getPageCount() !== 1) throw new Error('Image conversion should create 1 page.');
+      pass('images: converts a PNG into one PDF page');
+
+      lines.push('');
+      lines.push('All PDF module smoke tests passed.');
+      status.textContent = lines.join('\n');
+    }
+
+    run().catch(fail);
+  </script>
+</body>
+</html>

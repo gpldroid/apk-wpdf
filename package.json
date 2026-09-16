@@ -1,0 +1,22 @@
+{
+  "name": "applet",
+  "version": "1.0.0",
+  "description": "WPDF Pro is a browser-based PDF tools application focused on client-side file processing.",
+  "main": "sw.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server.js",
+    "build": "echo 'No build needed'",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "type": "module"
+}

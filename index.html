@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ef4444">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="World PDF هي المنصة الأفضل والأكثر أماناً لمعالجة ملفات PDF مجاناً. دمج، تقسيم، ضغط، وتحويل ملفات PDF (إلى Word, Excel, صور) مباشرة من متصفحك بدون الحاجة لرفعها، لضمان خصوصيتك بنسبة 100%.">
+    <meta name="keywords" content="دمج PDF, تقسيم PDF, ضغط PDF, تحويل PDF, PDF إلى Word, PDF إلى Excel, أدوات PDF مجانية, تعديل PDF, حماية PDF, فك حماية PDF, معالجة PDF محليا, World PDF, merge pdf, split pdf, compress pdf, pdf converter, free pdf tools, pdf editor, secure pdf, pdf tools online">
+    <meta name="author" content="World PDF">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="Arabic">
+    
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "World PDF",
+      "url": "https://www.wpdf.online/",
+      "description": "منصة احترافية مجانية لمعالجة ملفات PDF محلياً داخل متصفحك بأمان. تدعم دمج، تقسيم، تحويل، وتشفير الملفات.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.wpdf.online/">
+    <meta property="og:title" content="World PDF — أدوات PDF مجانية وسريعة وآمنة">
+    <meta property="og:description" content="مجموعة أدوات احترافية ومجانية لمعالجة ملفات PDF مباشرة عبر متصفحك بأمان تام وبدون رفع ملفاتك لأي خوادم خارجية.">
+    <meta property="og:image" content="https://placehold.co/1200x630/ef4444/ffffff?text=WorldPDF+Tools">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.wpdf.online/">
+    <meta name="twitter:title" content="World PDF — أدوات PDF مجانية وسريعة وآمنة">
+    <meta name="twitter:description" content="مجموعة أدوات احترافية ومجانية لمعالجة ملفات PDF مباشرة عبر متصفحك بأمان تام وبدون رفع ملفاتك لأي خوادم خارجية.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/ef4444/ffffff?text=WPDF+Tools">
+    
+    <title>World PDF — أدوات PDF مجانية وسريعة وآمنة</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Tajawal', 'sans-serif'] },
+                    colors: {
+                        primary: '#ef4444',
+                        primaryDark: '#dc2626',
+                        darkBg: '#0b1120',
+                        darkCard: '#172033',
+                        darkHover: '#243149',
+                        darkBorder: '#334155'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docx@9.0.0/build/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/app.css">
+
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-darkBg dark:text-gray-100 transition-colors duration-300 antialiased selection:bg-primary selection:text-white pb-16">
+
+    <header class="sticky top-0 z-40 w-full glass bg-white/80 dark:bg-darkBg/90 border-b border-gray-200 dark:border-darkBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 text-2xl font-extrabold hover:opacity-80 transition-opacity">
+                <i class="fa-solid fa-bolt text-primary"></i>
+                <span>World PDF</span>
+            </a>
+            
+            <nav class="hidden md:flex gap-6 text-sm font-medium" id="navLinks">
+                <a href="#tools" class="hover:text-primary transition-colors" data-i18n="navTools">الأدوات</a>
+                <a href="#about" class="hover:text-primary transition-colors" data-i18n="navAbout">عن الموقع</a>
+                <a href="javascript:void(0)" onclick="openPage('privacy')" class="hover:text-primary transition-colors" data-i18n="navPrivacy">الخصوصية</a>
+                <a href="#contact" class="hover:text-primary transition-colors" data-i18n="navContact">اتصل بنا</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button onclick="location.hash='tools'" class="hidden sm:block border-2 border-primary text-primary hover:bg-primary hover:text-white dark:hover:text-white px-5 py-1.5 rounded-full font-bold transition-all" data-i18n="btnTools">
+                    الأدوات
+                </button>
+                <button id="langBtn" class="w-10 h-10 rounded-full border border-gray-300 dark:border-darkBorder flex items-center justify-center hover:border-primary hover:text-primary transition-all font-bold text-sm bg-white dark:bg-darkCard shadow-sm" title="Change Language">
+                    EN
+                </button>
+                <button id="themeBtn" class="w-10 h-10 rounded-full border border-gray-300 dark:border-darkBorder flex items-center justify-center hover:border-primary hover:text-primary transition-all bg-white dark:bg-darkCard shadow-sm" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative bg-gradient-to-br from-primary to-red-800 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNykiLz48L3N2Zz4=')] opacity-30"></div>
+        <div class="max-w-4xl mx-auto px-4 py-20 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full px-4 py-1.5 text-sm font-medium mb-6 shadow-lg">
+                <i class="fa-solid fa-shield-halved text-yellow-300"></i>
+                <span data-i18n="heroBadge">ملفاتك تبقى آمنة ومحلية على جهازك</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight drop-shadow-md" data-i18n="heroTitle">
+                أدوات PDF تعمل فوراً
+            </h1>
+            <p class="text-lg md:text-xl text-red-100 mb-8 max-w-2xl mx-auto font-medium" data-i18n="heroDesc">
+                دمج، تقسيم، ضغط، تحويل وتنظيم ملفات PDF مباشرة من متصفحك. أمان تام حيث لا يتم رفع ملفاتك إلى أي خادم، مما يجعلنا الأداة الأسرع والأكثر أماناً.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 font-bold">
+                <a href="#tools" class="bg-white text-red-700 hover:bg-gray-100 px-8 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
+                    <span data-i18n="heroBtn">استكشف الأدوات</span>
+                    <i class="fa-solid fa-arrow-down rtl:fa-arrow-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="tools">
+        <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2" id="filterContainer">
+            <button class="filter-btn active px-6 py-2 rounded-full border border-gray-300 dark:border-darkBorder bg-white dark:bg-darkCard whitespace-nowrap font-bold text-sm transition-colors [&.active]:bg-primary [&.active]:text-white [&.active]:border-primary" data-cat="all" data-i18n="filterAll">الكل</button>
+            <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-darkBorder bg-white dark:bg-darkCard whitespace-nowrap font-bold text-sm transition-colors hover:border-primary hover:text-primary" data-cat="organize" data-i18n="filterOrg">تنظيم</button>
+            <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-darkBorder bg-white dark:bg-darkCard whitespace-nowrap font-bold text-sm transition-colors hover:border-primary hover:text-primary" data-cat="optimize" data-i18n="filterOpt">تحسين</button>
+            <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-darkBorder bg-white dark:bg-darkCard whitespace-nowrap font-bold text-sm transition-colors hover:border-primary hover:text-primary" data-cat="toPDF" data-i18n="filterToPDF">إلى PDF</button>
+            <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-darkBorder bg-white dark:bg-darkCard whitespace-nowrap font-bold text-sm transition-colors hover:border-primary hover:text-primary" data-cat="fromPDF" data-i18n="filterFromPDF">من PDF</button>
+            <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-darkBorder bg-white dark:bg-darkCard whitespace-nowrap font-bold text-sm transition-colors hover:border-primary hover:text-primary" data-cat="security" data-i18n="filterSec">الأمان</button>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="toolsGrid">
+        <!-- Cards generated by JS -->
+    </main>
+
+    <div class="bg-white dark:bg-darkCard border-t border-gray-200 dark:border-darkBorder">
+        <div class="max-w-5xl mx-auto px-4 py-16 space-y-16">
+            
+            <!-- About Us -->
+            <section id="about" class="text-center">
+                <h2 class="text-3xl font-bold mb-6 flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-blue-500"></i> <span data-i18n="aboutTitle">عن موقع World PDF</span>
+                </h2>
+                <div class="text-gray-600 dark:text-gray-400 leading-relaxed space-y-4 max-w-3xl mx-auto text-lg">
+                    <p data-i18n="aboutDesc1">
+                        World PDF هي منصة احترافية مجانية بالكامل، صُممت لتوفير أسهل وأسرع أدوات لمعالجة ملفات PDF مباشرة من متصفحك الإلكتروني دون الحاجة لتثبيت أي برامج.
+                    </p>
+                    <p data-i18n="aboutDesc2">
+                        نحن نولي أهمية قصوى لخصوصيتك؛ لذلك تعتمد تقنياتنا على معالجة الملفات محلياً داخل جهازك (Client-side Processing)، مما يعني أن مستنداتك السرية والشخصية لا يتم رفعها أو تخزينها على أي خوادم خارجية إطلاقاً.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Contact Us Form (Crucial for AdSense) -->
+            <section id="contact" class="bg-gray-50 dark:bg-[#0b1120] rounded-3xl p-8 md:p-12 border border-gray-200 dark:border-darkBorder shadow-sm">
+                <h2 class="text-3xl font-bold text-center mb-8"><i class="fa-solid fa-envelope-open-text text-primary"></i> <span data-i18n="contactTitle">تواصل معنا</span></h2>
+                <p class="text-center text-gray-500 dark:text-gray-400 mb-8 max-w-2xl mx-auto" data-i18n="contactDesc">هل لديك استفسار، اقتراح، أو واجهت مشكلة تقنية؟ يسعدنا تواصلك معنا من خلال النموذج التالي وسنقوم بالرد عليك في أقرب وقت.</p>
+                
+                <form id="contactForm" class="max-w-2xl mx-auto space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300" data-i18n="formName">الاسم الكامل</label>
+                            <input type="text" required class="w-full p-3.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-darkCard focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300" data-i18n="formEmail">البريد الإلكتروني</label>
+                            <input type="email" required class="w-full p-3.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-darkCard focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300" data-i18n="formMsg">رسالتك</label>
+                        <textarea required rows="4" class="w-full p-3.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-darkCard focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none transition-colors"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-4 rounded-xl shadow-md hover:shadow-lg transition-all flex justify-center items-center gap-2 text-lg">
+                        <i class="fa-solid fa-paper-plane"></i> <span data-i18n="formBtn">إرسال الرسالة</span>
+                    </button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <footer class="bg-gray-100 dark:bg-[#080d18] border-t border-gray-200 dark:border-darkBorder pt-12 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="#" class="flex items-center gap-2 text-2xl font-extrabold mb-4">
+                        <i class="fa-solid fa-bolt text-primary"></i> World PDF
+                    </a>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm max-w-sm leading-relaxed" data-i18n="footerDesc">
+                        منصتك المجانية والأكثر أماناً لمعالجة ملفات PDF مباشرة عبر متصفحك. لا توجد حدود للاستخدام ولا مساومة على خصوصية بياناتك.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4 text-gray-800 dark:text-gray-200" data-i18n="footerLinks">روابط هامة</h3>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="javascript:void(0)" onclick="openPage('terms')" class="hover:text-primary transition-colors" data-i18n="navTerms">شروط الاستخدام</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPage('privacy')" class="hover:text-primary transition-colors" data-i18n="navPrivacy">سياسة الخصوصية</a></li>
+                        <li><a href="#about" class="hover:text-primary transition-colors" data-i18n="navAbout">من نحن</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4 text-gray-800 dark:text-gray-200" data-i18n="footerSupport">الدعم والمساعدة</h3>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="#contact" class="hover:text-primary transition-colors" data-i18n="navContact">تواصل معنا</a></li>
+                        <li class="flex items-center gap-2"><i class="fa-regular fa-envelope"></i> info@larache.xyz</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-500 dark:text-gray-500 pt-6 border-t border-gray-200 dark:border-darkBorder flex flex-col sm:flex-row justify-between items-center gap-4">
+                <span data-i18n="copyright"> عماد لمراني © 2026 جميع الحقوق محفوظة — World PDF</span>
+                <div class="flex gap-5 text-xl">
+                    <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookies Consent Banner (Required for AdSense) -->
+    <div id="cookieBanner" class="fixed bottom-0 left-0 right-0 bg-gray-900/95 glass text-white z-[60] transform translate-y-full transition-transform duration-500 border-t border-gray-700 shadow-[0_-10px_40px_rgba(0,0,0,0.2)]">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-gray-300 flex-1 flex items-start sm:items-center gap-3">
+                <i class="fa-solid fa-cookie-bite text-2xl text-yellow-500 hidden sm:block"></i>
+                <p id="cookieText">
+                    <!-- Populated by JS i18n -->
+                </p>
+            </div>
+            <div class="flex gap-3 shrink-0 w-full sm:w-auto">
+                <button onclick="acceptCookies()" class="flex-1 sm:flex-none bg-primary hover:bg-primaryDark text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-colors text-center" data-i18n="cookieAccept">موافق</button>
+                <button onclick="acceptCookies()" class="flex-1 sm:flex-none bg-gray-700 hover:bg-gray-600 text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-colors text-center" data-i18n="cookieDecline">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backTop" class="fixed bottom-24 sm:bottom-6 rtl:left-6 ltr:right-6 bg-primary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:-translate-y-1 transition-transform z-40 opacity-0 pointer-events-none">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <div id="modal" class="fixed inset-0 bg-black/60 glass z-50 flex items-center justify-center p-4 modal-hidden">
+        <div id="modalBox" class="bg-white dark:bg-[#111a2b] w-full max-w-2xl rounded-2xl shadow-2xl border border-gray-200 dark:border-darkBorder overflow-hidden flex flex-col max-h-[90vh]">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-5 border-b border-gray-200 dark:border-darkBorder bg-gray-50 dark:bg-darkCard">
+                <h2 id="modalTitle" class="text-xl font-bold flex items-center gap-2"></h2>
+                <button onclick="closeTool()" class="text-gray-400 hover:text-red-500 bg-transparent hover:bg-red-50 dark:hover:bg-red-500/10 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-5 overflow-y-auto" id="modalBody">
+                <div id="dropzone" class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-8 text-center cursor-pointer hover:border-primary hover:bg-red-50 dark:hover:bg-red-900/10 transition-all flex flex-col items-center justify-center gap-3">
+                    <div class="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/20 text-primary flex items-center justify-center text-3xl mb-2">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <p class="font-bold text-lg" id="dropTitle" data-i18n="dropTitle">اختر الملفات أو اسحبها هنا</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400" id="dropSubtitle">صيغ مدعومة: PDF</p>
+                    <input type="file" id="fileInput" class="hidden" multiple>
+                </div>
+                <div id="fileList" class="mt-4 flex flex-col gap-2 empty:hidden"></div>
+                <div id="toolControls" class="mt-5 hidden bg-gray-50 dark:bg-darkCard p-4 rounded-xl border border-gray-200 dark:border-darkBorder"></div>
+                <div class="mt-6 flex flex-col items-center">
+                    <button id="actionBtn" class="bg-primary hover:bg-primaryDark text-white font-bold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 w-full sm:w-auto justify-center">
+                        <span id="actionBtnText">تنفيذ</span>
+                    </button>
+                    <div id="statusText" class="mt-3 text-sm font-medium text-gray-600 dark:text-gray-400 h-5"></div>
+                </div>
+                <div id="resultBox" class="mt-5 hidden p-4 border border-green-500/30 bg-green-50 dark:bg-green-500/10 rounded-xl text-center">
+                    <p class="text-green-700 dark:text-green-400 font-bold mb-3 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check"></i> <span data-i18n="processSuccess">تمت المعالجة بنجاح!</span>
+                    </p>
+                    <button id="downloadBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg shadow transition-colors flex items-center gap-2 mx-auto">
+                        <i class="fa-solid fa-download"></i> <span data-i18n="btnDownload">تحميل الملف</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pageModal" class="fixed inset-0 bg-black/60 glass z-50 flex items-center justify-center p-4 modal-hidden">
+        <div id="pageModalBox" class="bg-white dark:bg-darkCard w-full max-w-4xl rounded-2xl shadow-2xl border border-gray-200 dark:border-darkBorder overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-darkBorder bg-gray-50 dark:bg-darkCard">
+                <h2 id="pageTitle" class="text-2xl font-bold text-primary"></h2>
+                <button onclick="closePage()" class="text-gray-400 hover:text-red-500 bg-white dark:bg-[#0b1120] border border-gray-200 dark:border-darkBorder w-10 h-10 rounded-full flex items-center justify-center transition-colors shadow-sm">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="pageContent" class="p-6 md:p-10 overflow-y-auto text-gray-700 dark:text-gray-300 space-y-5 leading-relaxed text-[15px]">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-full shadow-2xl z-[70] flex items-center gap-3 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none font-medium text-sm w-max max-w-[90vw]">
+        <i class="fa-solid fa-circle-info text-blue-400" id="toastIcon"></i>
+        <span id="toastMsg">رسالة</span>
+    </div>
+
+    <script src="assets/js/app.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "World PDF",
+  "short_name": "World PDF",
+  "description": "Free browser-based PDF tools with client-side processing.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#ef4444",
+  "icons": [
+    {
+      "src": "/assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
