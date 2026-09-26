@@ -46,7 +46,7 @@ public class MainActivity extends ComponentActivity {
         webView = new WebView(this);
         bannerAd = new AdView(this);
         bannerAd.setAdSize(AdSize.BANNER);
-        bannerAd.setAdUnitId("ca-app-pub-1849282438800062/9542997805");
+        bannerAd.setAdUnitId("ca-app-pub-1849282438800062/8218397136");
 
         FrameLayout.LayoutParams wp = new FrameLayout.LayoutParams(-1, -1);
         wp.bottomMargin = dp(50);
