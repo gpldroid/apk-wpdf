@@ -1,4 +1,7 @@
-plugins { id "com.android.application" }
+plugins {
+    id "com.android.application"
+    id "com.google.gms.google-services"
+}
 
 android {
     namespace "com.wpdf.online"
@@ -43,4 +46,7 @@ dependencies {
     implementation "androidx.activity:activity:1.11.0"
     implementation "com.google.android.gms:play-services-ads:25.5.0"
     implementation "com.google.android.ump:user-messaging-platform:4.0.0"
+
+    implementation platform("com.google.firebase:firebase-bom:34.19.0")
+    implementation "com.google.firebase:firebase-analytics"
 }
