@@ -30,7 +30,7 @@ android {
 
 def webAssetsDir = file("${projectDir}/src/main/assets/web")
 tasks.register("syncWebAssets", Sync) {
-    from(rootProject.projectDir) {
+    from(file("${rootProject.projectDir}/..")) {
         include "index.html"
         include "pdf-editor.html"
         include "manifest.webmanifest"
