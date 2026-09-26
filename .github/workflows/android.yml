@@ -23,16 +23,17 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
         with:
           gradle-version: "9.6.1"
-      - name: Build debug APK
+      - name: Build debug APK and release APK
         working-directory: android
-        run: gradle assembleDebug --stacktrace
-      - name: Build release APK
+        run: gradle assembleDebug assembleRelease --stacktrace
+      - name: Build release AAB
         working-directory: android
-        run: gradle assembleRelease --stacktrace
-      - name: Upload APK artifacts
+        run: gradle bundleRelease --stacktrace
+      - name: Upload Android artifacts
         uses: actions/upload-artifact@v4
         with:
           name: world-pdf-android
           path: |
             android/app/build/outputs/apk/debug/*.apk
             android/app/build/outputs/apk/release/*.apk
+            android/app/build/outputs/bundle/release/*.aab
