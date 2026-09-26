@@ -1,66 +1,44 @@
-# WPDF Pro
+# World PDF
 
-WPDF Pro is a browser-based PDF tools application focused on client-side file processing.
+**World PDF** is a free PDF tools application designed to process documents quickly and privately.
 
-## Cloudflare deployment
+🌐 **Website:** https://www.wpdf.online/
 
-The `main` branch is the production source for **Cloudflare Pages**. The application is published directly from the repository root and uses Pages Functions plus a D1 database.
+## Features
 
-### Deploy
+- Merge PDF files
+- Split and extract PDF pages
+- Delete and reorder pages
+- Add page numbers
+- Convert images to PDF
+- PDF tools for Word, Excel and PowerPoint workflows
+- Camera and OCR tools
+- Client-side processing for supported operations
 
-No build command is required. Use:
+## Android App
 
-```bash
-npx wrangler pages deploy . --project-name wpdfpro
-```
+The Android version provides the World PDF experience in a mobile-friendly application with support for:
 
-Do not use `npx wrangler deploy`; that is the Workers deployment command and is not compatible with this Pages project configuration.
+- PDF file selection
+- Document and camera workflows
+- Saving generated files
+- Google Mobile Ads
+- RTL Arabic interface
 
-See `CLOUDFLARE.md` for the production D1 and Zero Trust configuration.
+## Privacy
 
-## Current application
+For supported operations, files are processed locally in the application/browser without uploading the documents to World PDF servers for processing.
 
-The application is implemented in `index.html` with runtime logic in `assets/js/app.js` and modular PDF operations under `assets/js/pdf/`.
+Read the full privacy policy:
 
-## Development
+https://www.wpdf.online/privacy.html
 
-The `main` branch is the published version. The `develop` branch was used to complete the modernization and restructuring work before promotion to `main`.
+## Website
 
-## Architecture
+Visit the official website:
 
-The PDF runtime is organized into focused modules under `assets/js/pdf/`:
-
-- core PDF loading, byte handling, downloads, and page-range parsing
-- PDF merge
-- PDF page extraction and per-page splitting
-- page deletion and reordering
-- page numbering
-- image-to-PDF conversion
-- security capability detection
-- conversion-library boundaries for Word, Excel, and PowerPoint workflows
-- dedicated conversion implementations for the existing browser libraries
-
-The production runtime in `assets/js/app.js` now uses the extracted modules for merge, image-to-PDF, split/extract, page deletion, page reordering, and page numbering. Compression, security/protection, and the remaining document-conversion flows stay on their existing implementations until their browser fidelity is audited.
-
-## Testing
-
-A browser-based smoke test is available at `tests/pdf-modules.html`. It creates in-memory PDFs and verifies merge, split, delete, reorder, page numbering, and image-to-PDF behavior without modifying production application state.
-
-The repository also includes a GitHub Actions validation workflow that checks JavaScript syntax, runtime module wiring, required project files, and pull requests targeting `main` or `develop`.
-
-## SEO and PWA foundation
-
-The project includes:
-
-- `robots.txt`
-- `sitemap.xml`
-- `manifest.webmanifest`
-- `sw.js` offline application-shell foundation
-
-## Privacy and dependency policy
-
-The application is designed around client-side processing for supported operations. Third-party libraries are currently loaded from CDNs. Conversion fidelity and browser compatibility should be audited before replacing or removing these dependencies.
+https://www.wpdf.online/
 
 ## License
 
-See `LICENSE` for the MIT License.
+MIT License. See [LICENSE](LICENSE).
