@@ -1,0 +1,46 @@
+plugins { id "com.android.application" }
+
+android {
+    namespace "com.wpdf.online"
+    compileSdk 36
+    defaultConfig {
+        applicationId "com.wpdf.online"
+        minSdk 24
+        targetSdk 36
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        debug { applicationIdSuffix ".debug"; versionNameSuffix "-debug" }
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    packaging { resources { excludes += ["/META-INF/{AL2.0,LGPL2.1}"] } }
+}
+
+def webAssetsDir = file("${projectDir}/src/main/assets/web")
+tasks.register("syncWebAssets", Sync) {
+    from(rootProject.projectDir) {
+        include "index.html"
+        include "pdf-editor.html"
+        include "manifest.webmanifest"
+        include "sw.js"
+        include "assets/**"
+    }
+    into(webAssetsDir)
+}
+tasks.named("preBuild").configure { dependsOn(tasks.named("syncWebAssets")) }
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:1.7.1"
+    implementation "androidx.activity:activity:1.11.0"
+    implementation "com.google.android.gms:play-services-ads:25.5.0"
+    implementation "com.google.android.ump:user-messaging-platform:4.0.0"
+}
