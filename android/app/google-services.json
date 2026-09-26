@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "636013811479",
+    "project_id": "world-pdf",
+    "storage_bucket": "world-pdf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636013811479:android:3838634db2a689a8a74952",
+        "android_client_info": {
+          "package_name": "com.wpdf.online"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt6igsR7kVTVuUoilEvh4mBOOSgK-e4o4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
