@@ -17,3 +17,5 @@ Static Astro website with an individual SEO-friendly page for each PDF tool. The
 - `assets/js/pdf`: existing modular PDF processing engine.
 
 The former admin dashboard and Express mock analytics server are excluded from the static deployment. Existing Google Tag Manager, AdSense publisher metadata, Search Console verification, ads.txt, PWA files, and custom domain are retained.
+
+All public routes share the same header, navigation, footer, responsive mobile tab bar, and Google site integrations. The standalone PDF editor and retained workspace include the mobile tab bar as well.
