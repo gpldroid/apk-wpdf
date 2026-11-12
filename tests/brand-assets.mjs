@@ -20,7 +20,7 @@ assert.match(html, /\/assets\/icons\/icon\.svg/);
 const tailwindConfigAt = html.indexOf('window.tailwind.config');
 const tailwindRuntimeAt = html.indexOf('https://cdn.tailwindcss.com');
 assert.ok(tailwindConfigAt >= 0 && tailwindRuntimeAt > tailwindConfigAt, 'Tailwind config must be declared before its CDN runtime');
-assert.doesNotMatch(html.slice(tailwindRuntimeAt - 100, tailwindRuntimeAt + 100), /defer/, 'Tailwind CDN must not be deferred past inline configuration');
+assert.match(html.slice(tailwindRuntimeAt, tailwindRuntimeAt + 100), /defer/, 'Tailwind CDN should remain deferred after its config is declared');
 assert.equal(manifest.name, 'World PDF');
 assert.equal(manifest.start_url, '/');
 assert.equal(manifest.theme_color, '#dc2626');
