@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/SiteLayout.astro';import {tools} from '../../data/tools.js';
+export function getStaticPaths(){return tools.map(tool=>({params:{slug:tool.slug},props:{tool}}));}
+const {tool}=Astro.props;
+---
+<Layout title={`${tool.name} مجاناً — World PDF`} description={tool.desc} canonical={`https://www.wpdf.online/tools/${tool.slug}/`}>
+<section class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">الرئيسية</a> / <a href="/tools/">الأدوات</a> / {tool.name}</p><h1>{tool.name}</h1><p>{tool.desc}</p><a class="button-primary" href={`/workspace/?tool=${tool.id}`}>استخدم الأداة الآن</a></div></section>
+<section class="section"><div class="container tool-detail"><article class="detail-card"><h2>كيف تستخدم {tool.name}؟</h2><ol><li>افتح مساحة المعالجة من الزر أعلاه.</li><li>اختر الملف أو الملفات المطلوبة من جهازك.</li><li>أدخل الإعدادات المتاحة ثم ابدأ المعالجة.</li><li>حمّل النتيجة وراجعها قبل مشاركة الملف.</li></ol><h2>الخصوصية وطريقة المعالجة</h2><p>تعمل أداة المعالجة داخل المتصفح. لا تغلق الصفحة أثناء العملية، واحتفظ بنسخة من الملف الأصلي.</p><h2>الصيغ المدعومة</h2><p>{tool.accept}</p></article><aside class="detail-aside"><h2>ابدأ الآن</h2><p>لا حاجة إلى تثبيت برنامج إضافي.</p><a class="button-primary" href={`/workspace/?tool=${tool.id}`}>فتح {tool.name}</a><p><a href="/tools/">← العودة إلى جميع الأدوات</a></p></aside></div></section>
+</Layout>

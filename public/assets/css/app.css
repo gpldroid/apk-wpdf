@@ -1,0 +1,20 @@
+/* Custom scrollbar & utilities */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        
+        .glass { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        
+        /* Modal Animation */
+        #modal, #pageModal { transition: opacity 0.3s ease; }
+        #modalBox, #pageModalBox { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .modal-hidden { opacity: 0; pointer-events: none; }
+        .modal-hidden #modalBox, .modal-hidden #pageModalBox { transform: scale(0.95) translateY(10px); }
+        
+        /* Spinner */
+        .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; width: 20px; height: 20px; animation: spin 1s ease-in-out infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
