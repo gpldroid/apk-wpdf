@@ -109,7 +109,8 @@
     <header class="sticky top-0 z-40 w-full glass bg-white/80 dark:bg-darkBg/90 border-b border-gray-200 dark:border-darkBorder">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="#" class="flex items-center gap-2 text-2xl font-extrabold hover:opacity-80 transition-opacity">
-                <img src="/assets/icons/brand.svg" width="164" height="40" alt="World PDF" fetchpriority="high" decoding="async">
+                <img src="/assets/icons/icon.svg" width="40" height="40" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+                <span class="text-gray-900 dark:text-white">World <span class="text-primary">PDF</span></span>
             </a>
             
             <nav class="hidden md:flex gap-6 text-sm font-medium" id="navLinks">
@@ -338,7 +339,14 @@
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC52SRXL"
             height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>
     </noscript>
-    <script src="assets/js/app.js" defer></script>
+        <script src="assets/js/app.js" defer></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
 
 </body>
 </html>
