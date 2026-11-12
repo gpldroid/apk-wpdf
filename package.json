@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/runtime-integration.mjs && node tests/performance-loading.mjs",
+    "test": "node tests/runtime-integration.mjs && node tests/performance-loading.mjs && node tests/brand-assets.mjs",
     "dev": "node server.js",
     "build": "echo 'No build needed'",
     "start": "node server.js"
