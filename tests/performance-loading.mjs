@@ -14,8 +14,8 @@ for (const library of heavyLibraries) {
     `${library} must not load in the initial document`);
 }
 assert.match(html, /cdn\.tailwindcss\.com" defer/, 'Tailwind runtime must not block HTML parsing');
-assert.match(html, /fonts\\.googleapis\\.com[^>]*media="print"/, 'Google Fonts stylesheet must load asynchronously');
-assert.match(html, /font-awesome[^>]*media="print"/, 'Icon stylesheet must load asynchronously');
+assert.ok(html.split('<link').some(tag => tag.includes('fonts.googleapis.com') && tag.includes('media="print"')), 'Google Fonts stylesheet must load asynchronously');
+assert.ok(html.split('<link').some(tag => tag.includes('font-awesome') && tag.includes('media="print"')), 'Icon stylesheet must load asynchronously');
 for (const loader of ['ensurePdfLib', 'ensurePdfJs', 'processWord', 'processExcel', 'processPPT']) {
   assert.ok(app.includes(loader), `${loader} lazy-loading path must exist`);
 }
