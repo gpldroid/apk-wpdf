@@ -1,0 +1,9 @@
+---
+import Layout from '../layouts/SiteLayout.astro';import {tools} from '../data/tools.js';
+---
+<Layout title="World PDF — أدوات PDF مجانية وسريعة وآمنة" description="دمج وتقسيم وضغط وتحويل ملفات PDF مجاناً. معالجة محلية داخل المتصفح دون رفع ملفاتك." canonical="https://www.wpdf.online/">
+<section class="hero"><div class="container hero-content"><span class="eyebrow">معالجة محلية — خصوصية ملفاتك أولاً</span><h1>كل أدوات PDF التي تحتاجها في مكان واحد</h1><p>ادمج ملفات PDF وقسّمها واضغطها وحوّلها ونظّم صفحاتها مباشرة من متصفحك. ابدأ دون تثبيت برامج أو إنشاء حساب.</p><a class="button-primary" href="#tools">استكشف الأدوات المجانية ↓</a></div></section>
+<section class="section" id="tools"><div class="container"><div class="section-heading"><h2>أدوات PDF</h2><p>لكل أداة صفحة مستقلة تشرح وظيفتها وتتيح فتح مساحة المعالجة.</p></div><div class="tool-grid">{tools.map(t=><a class="tool-card" href={`/tools/${t.slug}/`}><span class="tool-icon">PDF</span><span><h3>{t.name}</h3><p>{t.desc}</p></span></a>)}</div></div></section>
+<section class="section" id="about"><div class="container about-panel"><h2>عن World PDF</h2><p>World PDF مجموعة أدوات مجانية لمعالجة ملفات PDF من المتصفح. صُممت الأدوات لتعمل محلياً على جهازك قدر الإمكان، دون الحاجة إلى إرسال المستندات إلى خادم لمعالجتها.</p><p>تختلف الإمكانات بحسب نوع الملف والمتصفح والمكتبات المستخدمة. احتفظ دائماً بنسخة أصلية من مستنداتك المهمة.</p></div></section>
+<section class="section" id="contact"><div class="container contact-panel"><h2>تواصل معنا</h2><p>للاستفسارات والملاحظات التقنية:</p><a href="mailto:info@larache.xyz">info@larache.xyz</a></div></section>
+</Layout>

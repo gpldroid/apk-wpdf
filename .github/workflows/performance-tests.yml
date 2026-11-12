@@ -1,11 +1,9 @@
-name: Performance regression tests
-
+name: Performance and Astro build tests
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [main, "perf/**"]
-
+    branches: ["**"]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,5 +11,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+      - run: npm install
       - run: npm test
+      - run: npm run build
+      - name: Verify generated website
+        run: |
+          test -f dist/index.html
+          test -f dist/tools/merge-pdf/index.html
+          test -f dist/tools/pdf-to-word/index.html
+          test -f dist/ads.txt
+          test -f dist/googledd5a51d8de510678.html
+          test -f dist/CNAME
