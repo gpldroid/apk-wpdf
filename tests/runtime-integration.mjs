@@ -9,10 +9,12 @@ assert.match(app, /async function processSplit\(\)[\s\S]*import\('\.\/assets\/js
 assert.match(app, /async function processEdit\(type\)[\s\S]*import\('\.\/assets\/js\/pdf\/edit\.js'\)/, 'edit operations must use the extracted module');
 assert.match(app, /async function processEdit\(type\)[\s\S]*import\('\.\/assets\/js\/pdf\/numbers\.js'\)/, 'numbering must use the extracted module');
 
-const legacyImages = /async function processImages\(\)[\s\S]*PDFLib\.PDFDocument\.create\(\)/;
-const legacySplit = /async function processSplit\(\)[\s\S]*out\.copyPages\(p, nums\)/;
-assert.doesNotMatch(app, legacyImages, 'legacy image conversion must not remain in processImages');
-assert.doesNotMatch(app, legacySplit, 'legacy split copyPages path must not remain in processSplit');
+const processImagesBody = app.split('async function processImages() {')[1]?.split('async function processSplit()')[0] || '';
+const processSplitBody = app.split('async function processSplit() {')[1]?.split('async function processEdit(type)')[0] || '';
+assert.ok(processImagesBody, 'processImages function must exist');
+assert.ok(processSplitBody, 'processSplit function must exist');
+assert.doesNotMatch(processImagesBody, /PDFLib\.PDFDocument\.create\(\)/, 'legacy image conversion must not remain in processImages');
+assert.doesNotMatch(processSplitBody, /out\.copyPages\(p, nums\)/, 'legacy split copyPages path must not remain in processSplit');
 
 const requiredModules = [
   'assets/js/pdf/core.js',
