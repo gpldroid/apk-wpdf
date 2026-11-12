@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ef4444">
+    <meta name="theme-color" content="#dc2626">
+    <meta name="color-scheme" content="light dark">
+    <meta name="application-name" content="World PDF">
+    <meta name="apple-mobile-web-app-title" content="World PDF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="https://www.wpdf.online/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="/assets/icons/icon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="mask-icon" href="/favicon.svg" color="#dc2626">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="World PDF هي المنصة الأفضل والأكثر أماناً لمعالجة ملفات PDF مجاناً. دمج، تقسيم، ضغط، وتحويل ملفات PDF (إلى Word, Excel, صور) مباشرة من متصفحك بدون الحاجة لرفعها، لضمان خصوصيتك بنسبة 100%.">
@@ -12,12 +25,16 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="Arabic">
    <meta name="google-adsense-account" content="ca-pub-6996931662051674"> 
-    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-KC52SRXL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-</script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KC52SRXL');
+    </script>
+    <!-- End Google Tag Manager -->
     <meta name="google-site-verification" content="eUswbZSa1Op5doTXhulMQ6KZyBci0izcvZ8k661pRsE" />
     <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json">
@@ -42,14 +59,14 @@
     <meta property="og:url" content="https://www.wpdf.online/">
     <meta property="og:title" content="World PDF — أدوات PDF مجانية وسريعة وآمنة">
     <meta property="og:description" content="مجموعة أدوات احترافية ومجانية لمعالجة ملفات PDF مباشرة عبر متصفحك بأمان تام وبدون رفع ملفاتك لأي خوادم خارجية.">
-    <meta property="og:image" content="https://placehold.co/1200x630/ef4444/ffffff?text=WorldPDF+Tools">
+    <meta property="og:image" content="https://www.wpdf.online/assets/icons/og-image.svg">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.wpdf.online/">
     <meta name="twitter:title" content="World PDF — أدوات PDF مجانية وسريعة وآمنة">
     <meta name="twitter:description" content="مجموعة أدوات احترافية ومجانية لمعالجة ملفات PDF مباشرة عبر متصفحك بأمان تام وبدون رفع ملفاتك لأي خوادم خارجية.">
-    <meta name="twitter:image" content="https://placehold.co/1200x630/ef4444/ffffff?text=WPDF+Tools">
+    <meta name="twitter:image" content="https://www.wpdf.online/assets/icons/og-image.svg">
     
     <title>World PDF — أدوات PDF مجانية وسريعة وآمنة</title>
     
@@ -61,10 +78,10 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Tailwind CSS: configure before loading the CDN runtime -->
     <script>
-        tailwind.config = {
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
@@ -79,8 +96,9 @@
                     }
                 }
             }
-        }
+        };
     </script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
 
     <!-- Libraries -->
 
@@ -88,12 +106,16 @@
 
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-darkBg dark:text-gray-100 transition-colors duration-300 antialiased selection:bg-primary selection:text-white pb-16">
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC52SRXL"
+            height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>
+    </noscript>
 
     <header class="sticky top-0 z-40 w-full glass bg-white/80 dark:bg-darkBg/90 border-b border-gray-200 dark:border-darkBorder">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="#" class="flex items-center gap-2 text-2xl font-extrabold hover:opacity-80 transition-opacity">
-                <i class="fa-solid fa-bolt text-primary"></i>
-                <span>World PDF</span>
+                <img src="/assets/icons/icon.svg" width="40" height="40" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+                <span class="text-gray-900 dark:text-white">World <span class="text-primary">PDF</span></span>
             </a>
             
             <nav class="hidden md:flex gap-6 text-sm font-medium" id="navLinks">
@@ -318,7 +340,14 @@
         <span id="toastMsg">رسالة</span>
     </div>
 
-    <script src="assets/js/app.js" defer></script>
+        <script src="assets/js/app.js" defer></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
 
 </body>
 </html>
