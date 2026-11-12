@@ -1,4 +1,5 @@
 {
+  "id": "/",
   "name": "World PDF",
   "short_name": "World PDF",
   "description": "Free browser-based PDF tools with client-side processing.",
@@ -7,8 +8,17 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0b1120",
-  "theme_color": "#ef4444",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#dc2626",
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
   "icons": [
     {
       "src": "/assets/icons/icon.svg",
