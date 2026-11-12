@@ -1,22 +1,9 @@
-const CACHE_NAME = 'wpdf-shell-v3';
+const CACHE_NAME = 'wpdf-shell-v4';
 const APP_SHELL = [
   '/',
   '/index.html',
   '/assets/css/app.css',
   '/assets/js/app.js',
-  '/assets/js/analytics.js',
-  '/assets/js/pdf/core.js',
-  '/assets/js/pdf/index.js',
-  '/assets/js/pdf/merge.js',
-  '/assets/js/pdf/split.js',
-  '/assets/js/pdf/edit.js',
-  '/assets/js/pdf/numbers.js',
-  '/assets/js/pdf/images.js',
-  '/assets/js/pdf/security.js',
-  '/assets/js/pdf/convert.js',
-  '/assets/js/pdf/convert-word.js',
-  '/assets/js/pdf/convert-excel.js',
-  '/assets/js/pdf/convert-ppt.js',
   '/assets/icons/icon.svg',
   '/manifest.webmanifest'
 ];
