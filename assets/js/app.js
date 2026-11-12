@@ -6,13 +6,45 @@ const APP = {
             pdfjsReady: false
         };
 
-        // Init PDF.js Worker & Utilities (Cross-Browser Fix)
-        try {
-            if (window.pdfjsLib) {
-                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-                APP.pdfjsReady = true;
-            }
-        } catch (e) { console.error("PDF.js Init Error", e); }
+        // Heavy PDF/conversion libraries are loaded only when a user starts
+        // the matching tool. This keeps the initial page lightweight.
+        const SCRIPT_LOADS = new Map();
+        function loadExternalScript(src, globalName) {
+            if (globalName && window[globalName]) return Promise.resolve(window[globalName]);
+            if (SCRIPT_LOADS.has(src)) return SCRIPT_LOADS.get(src);
+            const promise = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.async = true;
+                script.onload = () => {
+                    const library = globalName ? window[globalName] : true;
+                    if (!library) {
+                        SCRIPT_LOADS.delete(src);
+                        reject(new Error('تعذر تهيئة مكتبة: ' + globalName));
+                        return;
+                    }
+                    resolve(library);
+                };
+                script.onerror = () => {
+                    SCRIPT_LOADS.delete(src);
+                    reject(new Error('تعذر تحميل مكتبة: ' + globalName));
+                };
+                document.head.appendChild(script);
+            });
+            SCRIPT_LOADS.set(src, promise);
+            return promise;
+        }
+
+        async function ensurePdfLib() {
+            return loadExternalScript('https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js', 'PDFLib');
+        }
+
+        async function ensurePdfJs() {
+            const lib = await loadExternalScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', 'pdfjsLib');
+            lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            APP.pdfjsReady = true;
+            return lib;
+        }
 
         // Polyfill for Older Browsers (Safari 13, older Android WebViews) that don't support file.arrayBuffer()
         async function getFileBuffer(file) {
@@ -427,6 +459,7 @@ const APP = {
         }
 
         async function loadPdfDoc(file, password) {
+            await ensurePdfLib();
             return await PDFLib.PDFDocument.load(await getFileBuffer(file), password !== undefined ? { password } : undefined);
         }
 
@@ -471,12 +504,14 @@ const APP = {
 
         // Tasks implementations
         async function processMerge() {
+            await ensurePdfLib();
             const { merge } = await import('./assets/js/pdf/merge.js');
             const bytes = await merge(APP.files);
             provideDownload(bytes, 'merged.pdf');
         }
 
         async function processImages() {
+    await ensurePdfLib();
     const { imagesToPdf } = await import('./assets/js/pdf/images.js');
     provideDownload(await imagesToPdf(APP.files), 'images_to_pdf.pdf');
 }
@@ -508,6 +543,7 @@ const APP = {
         return;
     }
     if (type === 'numbers') {
+        await ensurePdfLib();
         const { addPageNumbers } = await import('./assets/js/pdf/numbers.js');
         provideDownload(await addPageNumbers(APP.files[0], $('#toolInputVal').value), 'numbers_result.pdf');
         return;
@@ -534,7 +570,8 @@ const APP = {
         }
 
         async function processWord() {
-            if (!APP.pdfjsReady) throw new Error(dict[APP.lang].errPdfjs || "PDF.js Error");
+            const pdfjsLib = await ensurePdfJs();
+            const docx = await loadExternalScript('https://cdn.jsdelivr.net/npm/docx@9.0.0/build/index.umd.js', 'docx');
             const pdfData = new Uint8Array(await getFileBuffer(APP.files[0]));
             const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
             let children = [];
@@ -547,8 +584,10 @@ const APP = {
         }
 
         async function processExcel() {
+            const XLSX = await loadExternalScript('https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js', 'XLSX');
+            const jspdf = await loadExternalScript('https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js', 'jspdf');
             const wb = XLSX.read(await getFileBuffer(APP.files[0]), { type: 'array' });
-            const { jsPDF } = window.jspdf; const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+            const { jsPDF } = jspdf; const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
             pdf.setFontSize(10);
             wb.SheetNames.forEach((sn, si) => {
                 if (si > 0) pdf.addPage();
@@ -563,7 +602,8 @@ const APP = {
         }
 
         async function processPPT() {
-            if (!APP.pdfjsReady) throw new Error(dict[APP.lang].errPdfjs || "PDF.js Error");
+            const pdfjsLib = await ensurePdfJs();
+            const PptxGenJS = await loadExternalScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.min.js', 'PptxGenJS');
             const pdfData = new Uint8Array(await getFileBuffer(APP.files[0]));
             const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
             const ppt = new PptxGenJS(); ppt.layout = 'LAYOUT_WIDE';
