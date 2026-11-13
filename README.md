@@ -1,21 +1,25 @@
 # World PDF
 
-Static Astro website with dedicated SEO pages for every PDF tool. The browser-side PDF workspace is preserved under `public/workspace/`.
+A clean, static Astro website for World PDF at https://wpdf.online.
 
 ## Commands
+
 - `npm install`
 - `npm run dev`
 - `npm test`
 - `npm run build`
+- `npm run preview`
 
-## Structure
-- `src/pages/`: homepage, tool directory, generated tool detail pages, legal pages and sitemap.
+## Architecture
+
+- `src/pages/`: homepage, tools directory, 12 generated tool pages, legal pages and sitemap.
+- `src/data/tools.js`: single source of truth for tool names, routes, runtime IDs and page content.
 - `src/components/`: shared header, footer and mobile navigation.
-- `src/layouts/`: shared document shell, metadata, AdSense and Google Tag Manager.
-- `src/data/tools.js`: single source of truth for tool routes.
-- `src/styles/` and `src/scripts/`: bundled site styles and navigation/theme behavior.
-- `public/workspace/`: existing PDF processing interface.
-- `public/assets/`: runtime JavaScript, PDF modules, icons and workspace styles.
-- `public/`: static verification, PWA, robots, ads and editor assets.
+- `src/layouts/`: shared SEO, analytics, Google AdSense and Google Tag Manager shell.
+- `src/styles/` and `src/scripts/`: responsive design system and lightweight navigation/theme behavior.
+- `public/workspace/`: existing PDF processing workspace.
+- `public/pdf-editor.html`: existing standalone PDF editor.
+- `public/assets/`: PDF runtime, icons, styles and analytics.
+- `public/`: domain, ads.txt, Search Console verification, PWA and crawler files.
 
-Astro source belongs in `src/`; deployable static assets belong in `public/`. Duplicate legacy website files from the repository root have been removed. The admin dashboard is intentionally excluded.
+The PDF processing runtime and editor are retained. The admin dashboard is intentionally excluded. Astro source lives only in `src/`; deployable static assets live in `public/`.

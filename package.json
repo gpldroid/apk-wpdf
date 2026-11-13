@@ -1,1 +1,17 @@
-{"name":"world-pdf","version":"2.0.0","private":true,"description":"World PDF — browser-based PDF tools powered by Astro.","type":"module","scripts":{"dev":"astro dev","build":"astro build","preview":"astro preview","astro":"astro","test":"node tests/runtime-integration.mjs && node tests/performance-loading.mjs && node tests/brand-assets.mjs"},"dependencies":{"astro":"^6.0.0"}}
+{
+  "name": "world-pdf",
+  "version": "3.0.0",
+  "private": true,
+  "description": "World PDF — a clean Astro website for browser-based PDF tools.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "node tests/runtime-integration.mjs && node tests/performance-loading.mjs && node tests/brand-assets.mjs && node tests/astro-structure.mjs"
+  },
+  "dependencies": {
+    "astro": "^6.0.0"
+  }
+}

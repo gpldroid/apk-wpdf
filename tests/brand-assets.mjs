@@ -18,6 +18,7 @@ assert.ok(layout.includes('href="/manifest.webmanifest"'));
 assert.ok(layout.includes('GTM-KC52SRXL'));
 assert.ok(layout.includes('ca-pub-6996931662051674'));
 assert.ok(layout.includes('google-site-verification'));
+assert.ok(layout.includes('/assets/js/analytics.js'));
 assert.equal(manifest.name,'World PDF');assert.equal(manifest.start_url,'/');assert.equal(manifest.theme_color,'#dc2626');assert.equal(manifest.icons[0].src,'/assets/icons/icon.svg');
 assert.ok(sw.includes('wpdf-astro-v1')&&sw.includes('/manifest.webmanifest'));
 assert.ok(favicon.includes('#dc2626')&&icon.includes('#dc2626'));assert.ok(brand.includes('World PDF'));assert.ok(og.includes('wpdf.online'));

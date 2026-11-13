@@ -1,4 +1,8 @@
 ---
-import Layout from '../../layouts/SiteLayout.astro';import {tools} from '../../data/tools.js';
+import Layout from '../../layouts/SiteLayout.astro';
+import { tools, categories } from '../../data/tools.js';
 ---
-<Layout title="جميع أدوات PDF — World PDF" description="تصفح جميع أدوات World PDF لمعالجة ملفات PDF وتحويلها وتنظيم صفحاتها." canonical="https://wpdf.online/tools/"><section class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">الرئيسية</a> / الأدوات</p><h1>جميع أدوات PDF</h1><p>اختر الأداة التي تحتاجها وانتقل إلى صفحة الاستخدام المخصصة لها.</p></div></section><section class="section"><div class="container tool-grid">{tools.map(t=><a class="tool-card" href={`/tools/${t.slug}/`}><span class="tool-icon">PDF</span><span><h2>{t.name}</h2><p>{t.desc}</p></span></a>)}</div></section></Layout>
+<Layout title="جميع أدوات PDF المجانية | World PDF" description="تصفح أدوات World PDF المجانية لدمج وتقسيم وتحويل وضغط وتنظيم ملفات PDF." canonical="https://wpdf.online/tools/">
+  <section class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">الرئيسية</a><span>/</span> الأدوات</p><span class="section-kicker">مكتبة الأدوات</span><h1>أدوات PDF في مكان واحد</h1><p>اختر الأداة المناسبة لمهمتك. لكل أداة صفحة مستقلة تحتوي على شرح مختصر وخطوات الاستخدام.</p><div class="page-hero-meta"><span>12 أداة متاحة</span><span>واجهة عربية</span><span>لا حاجة إلى تثبيت</span></div></div></section>
+  <section class="section"><div class="container"><div class="tool-directory">{categories.filter(c => c !== 'الكل').map(category => <section class="directory-group"><div class="directory-heading"><h2>{category}</h2><span>{tools.filter(t => t.category === category).length} أدوات</span></div><div class="tool-grid">{tools.filter(t => t.category === category).map(tool => <a class="tool-card" href={`/tools/${tool.slug}/`} data-tool={tool.id}><span class="tool-card-icon">{tool.icon}</span><span class="tool-card-content"><h3>{tool.name}</h3><p>{tool.short}</p><span class="tool-card-link">تفاصيل الأداة <b aria-hidden="true">←</b></span></span></a>)}</div></section>)}</div></div></section>
+</Layout>

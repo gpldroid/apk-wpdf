@@ -1,1 +1,27 @@
-const toggle=document.querySelector('#mobileMenuToggle');const nav=document.querySelector('#siteNav');toggle?.addEventListener('click',()=>{const open=nav?.classList.toggle('is-open')??false;toggle.setAttribute('aria-expanded',String(open));});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');toggle?.setAttribute('aria-expanded','false');}));const theme=document.querySelector('#themeToggle');if(localStorage.getItem('wpdf-theme')==='dark')document.documentElement.classList.add('dark-mode');theme?.addEventListener('click',()=>{document.documentElement.classList.toggle('dark-mode');localStorage.setItem('wpdf-theme',document.documentElement.classList.contains('dark-mode')?'dark':'light');});
+const root = document.documentElement;
+const menuButton = document.querySelector('#mobileMenuToggle');
+const navigation = document.querySelector('#siteNav');
+const themeButton = document.querySelector('#themeToggle');
+
+menuButton?.addEventListener('click', () => {
+  const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+  menuButton.setAttribute('aria-expanded', String(!expanded));
+  navigation?.classList.toggle('is-open', !expanded);
+});
+
+navigation?.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navigation.classList.remove('is-open');
+    menuButton?.setAttribute('aria-expanded', 'false');
+  });
+});
+
+try {
+  if (localStorage.getItem('wpdf-theme') === 'dark') root.classList.add('dark-mode');
+} catch {}
+
+themeButton?.addEventListener('click', () => {
+  const dark = root.classList.toggle('dark-mode');
+  try { localStorage.setItem('wpdf-theme', dark ? 'dark' : 'light'); } catch {}
+  themeButton.setAttribute('aria-label', dark ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع الداكن');
+});
