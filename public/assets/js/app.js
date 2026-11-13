@@ -505,14 +505,14 @@ const APP = {
         // Tasks implementations
         async function processMerge() {
             await ensurePdfLib();
-            const { merge } = await import('./assets/js/pdf/merge.js');
+            const { merge } = await import('/assets/js/pdf/merge.js');
             const bytes = await merge(APP.files);
             provideDownload(bytes, 'merged.pdf');
         }
 
         async function processImages() {
     await ensurePdfLib();
-    const { imagesToPdf } = await import('./assets/js/pdf/images.js');
+    const { imagesToPdf } = await import('/assets/js/pdf/images.js');
     provideDownload(await imagesToPdf(APP.files), 'images_to_pdf.pdf');
 }
 
@@ -521,7 +521,7 @@ const APP = {
     const p = await loadPdfDoc(APP.files[0]);
     const nums = parseRange(range, p.getPageCount());
     if (!nums.length) throw new Error('Invalid page range');
-    const { extractPages } = await import('./assets/js/pdf/split.js');
+    const { extractPages } = await import('/assets/js/pdf/split.js');
     provideDownload(await extractPages(APP.files[0], range), 'split.pdf');
 }
 
@@ -530,7 +530,7 @@ const APP = {
         const p = await loadPdfDoc(APP.files[0]);
         const del = parseRange($('#toolInputVal').value, p.getPageCount());
         if (del.length >= p.getPageCount()) throw new Error('Cannot delete all pages');
-        const { deletePages } = await import('./assets/js/pdf/edit.js');
+        const { deletePages } = await import('/assets/js/pdf/edit.js');
         provideDownload(await deletePages(APP.files[0], del), 'delete_result.pdf');
         return;
     }
@@ -538,13 +538,13 @@ const APP = {
         const p = await loadPdfDoc(APP.files[0]);
         const r = parseRange($('#toolInputVal').value, p.getPageCount());
         const order = r.length ? r : [...Array(p.getPageCount()).keys()];
-        const { reorderPages } = await import('./assets/js/pdf/edit.js');
+        const { reorderPages } = await import('/assets/js/pdf/edit.js');
         provideDownload(await reorderPages(APP.files[0], order), 'reorder_result.pdf');
         return;
     }
     if (type === 'numbers') {
         await ensurePdfLib();
-        const { addPageNumbers } = await import('./assets/js/pdf/numbers.js');
+        const { addPageNumbers } = await import('/assets/js/pdf/numbers.js');
         provideDownload(await addPageNumbers(APP.files[0], $('#toolInputVal').value), 'numbers_result.pdf');
         return;
     }
