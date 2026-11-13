@@ -1,10 +1,9 @@
-
 ---
 const { tool } = Astro.props;
 ---
 <section class="tool-runtime container" id="tool">
   <div class="runtime-intro">
-    <div><span class="section-kicker">معالجة مباشرة داخل المتصفح</span><h2>ابدأ ${tool.name}</h2><p>اختر الملف من جهازك، نفّذ العملية، ثم نزّل النتيجة. لا تغلق الصفحة أثناء المعالجة.</p></div>
+    <div><span class="section-kicker">معالجة مباشرة داخل المتصفح</span><h2>ابدأ {tool.name}</h2><p>اختر الملف من جهازك، نفّذ العملية، ثم نزّل النتيجة. لا تغلق الصفحة أثناء المعالجة.</p></div>
     <button class="button button-primary" type="button" onclick={"openTool('" + tool.id + "')"}>فتح أداة المعالجة</button>
   </div>
   <div class="runtime-note"><strong>قبل البدء:</strong> احتفظ بنسخة من ملفك الأصلي، وتأكد من مراجعة النتيجة بعد التنزيل.</div>
@@ -17,7 +16,7 @@ const { tool } = Astro.props;
 <form id="contactForm" hidden></form>
 <div id="modal" class="modal-hidden runtime-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <section class="runtime-dialog runtime-tool-dialog">
-    <div class="runtime-dialog-head"><div><span class="section-kicker">World PDF</span><h2 id="modalTitle">${tool.name}</h2></div><button type="button" class="runtime-close" onclick="document.getElementById('modal').classList.add('modal-hidden')">إغلاق</button></div>
+    <div class="runtime-dialog-head"><div><span class="section-kicker">World PDF</span><h2 id="modalTitle">{tool.name}</h2></div><button type="button" class="runtime-close" onclick="document.getElementById('modal').classList.add('modal-hidden')">إغلاق</button></div>
     <div class="runtime-dropzone" id="dropzone" role="button" tabindex="0"><span class="runtime-upload-icon">↑</span><strong>اختر الملفات أو اسحبها وأفلتها هنا</strong><small id="dropSubtitle">الصيغ المدعومة: PDF فقط</small><input id="fileInput" type="file" hidden /></div>
     <div id="fileList" class="runtime-file-list"></div><div id="toolControls" class="runtime-controls hidden"></div>
     <p id="statusText" class="runtime-status" aria-live="polite"></p>
