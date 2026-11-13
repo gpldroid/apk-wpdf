@@ -25,5 +25,8 @@ assert.ok(sw.includes('wpdf-astro-v2')&&sw.includes('/manifest.webmanifest'));
 assert.ok(favicon.includes('#dc2626')&&icon.includes('#dc2626'));assert.ok(brand.includes('World PDF'));assert.ok(og.includes('wpdf.online'));
 assert.ok(robots.includes('Sitemap: https://wpdf.online/sitemap.xml'));
 assert.ok(workspace.includes('<script src="/assets/js/app.js" defer>'));
+assert.ok(workspace.includes('class="wpdf-mobile-tabbar"'), 'Workspace must have the shared mobile navigation');
+assert.ok(editor.includes('<footer'), 'Standalone editor must have the shared footer pattern');
+assert.ok(editor.includes('class="wpdf-mobile-tabbar"'), 'Standalone editor must have the shared mobile navigation');
 assert.ok(editor.includes('/assets/js/analytics.js'));
 console.log('Astro metadata, brand assets, PWA and verification checks passed.');
