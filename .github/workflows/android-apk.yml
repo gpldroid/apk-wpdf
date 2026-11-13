@@ -1,8 +1,9 @@
 name: Build World PDF Android APK
+# Manual dispatch is available for verifying release signing after repository secrets are added.
 
 on:
   push:
-    branches: [main, feature/android-apk-wrapper]
+    branches: [main, feature/android-apk-wrapper, feature/android-release-signing]
     paths:
       - 'android/**'
       - 'src/**'
@@ -25,8 +26,13 @@ permissions:
 
 jobs:
   verify-and-build:
-    name: Verify website and build Android APK
+    name: Verify website and build Android APKs
     runs-on: ubuntu-latest
+    env:
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -66,10 +72,35 @@ jobs:
         working-directory: android
         run: gradle --no-daemon assembleDebug
 
-      - name: Upload APK
+      - name: Prepare release signing key
+        if: env.ANDROID_KEYSTORE_BASE64 != '' && env.ANDROID_KEYSTORE_PASSWORD != '' && env.ANDROID_KEY_ALIAS != '' && env.ANDROID_KEY_PASSWORD != ''
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/world-pdf-release.jks"
+          chmod 600 "$RUNNER_TEMP/world-pdf-release.jks"
+          echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/world-pdf-release.jks" >> "$GITHUB_ENV"
+
+      - name: Assemble signed release APK
+        if: env.ANDROID_KEYSTORE_BASE64 != '' && env.ANDROID_KEYSTORE_PASSWORD != '' && env.ANDROID_KEY_ALIAS != '' && env.ANDROID_KEY_PASSWORD != ''
+        working-directory: android
+        run: gradle --no-daemon assembleRelease
+
+      - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: world-pdf-android-apk
+          name: world-pdf-android-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
+
+      - name: Upload signed release APK
+        if: env.ANDROID_KEYSTORE_BASE64 != '' && env.ANDROID_KEYSTORE_PASSWORD != '' && env.ANDROID_KEY_ALIAS != '' && env.ANDROID_KEY_PASSWORD != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: world-pdf-android-release
+          path: android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Explain skipped release build
+        if: env.ANDROID_KEYSTORE_BASE64 == '' || env.ANDROID_KEYSTORE_PASSWORD == '' || env.ANDROID_KEY_ALIAS == '' || env.ANDROID_KEY_PASSWORD == ''
+        run: echo "Release APK skipped because one or more Android signing secrets are not configured."
