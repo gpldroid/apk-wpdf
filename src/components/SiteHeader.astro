@@ -1,23 +1,11 @@
+
 ---
+import { primaryNavigation } from '../data/navigation.js';
 const currentPath = Astro.url.pathname;
 ---
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="/" aria-label="World PDF — الرئيسية">
-      <img src="/assets/icons/icon.svg" width="42" height="42" alt="" />
-      <span>World <b>PDF</b></span>
-    </a>
-    <button class="menu-toggle" id="mobileMenuToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="فتح قائمة التنقل"><span></span><span></span><span></span></button>
-    <nav class="site-nav" id="siteNav" aria-label="التنقل الرئيسي">
-      <a href="/tools/" aria-current={currentPath.startsWith('/tools') ? 'page' : undefined}>الأدوات</a>
-      <a href="/#how-it-works">طريقة الاستخدام</a>
-      <a href="/about/">عن World PDF</a>
-      <a href="/privacy/">الخصوصية</a>
-      <a href="/contact/">اتصل بنا</a>
-    </nav>
-    <div class="header-actions">
-      <a class="button button-small button-primary" href="/workspace/">ابدأ المعالجة</a>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الليلي" title="تبديل المظهر"><span aria-hidden="true">◐</span></button>
-    </div>
-  </div>
-</header>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="World PDF — الرئيسية"><img src="/assets/icons/icon.svg" width="42" height="42" alt="" /><span>World <b>PDF</b></span></a>
+<button class="menu-toggle" id="mobileMenuToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="فتح قائمة التنقل"><span></span><span></span><span></span></button>
+<nav class="site-nav" id="siteNav" aria-label="التنقل الرئيسي">{primaryNavigation.map(item => <a href={item.href} aria-current={currentPath === item.href || (item.href === '/tools/' && currentPath.startsWith('/tools/')) ? 'page' : undefined}>{item.label}</a>)}</nav>
+<div class="header-actions"><a class="button button-small button-primary" href="/tools/">ابدأ الآن</a><button class="theme-toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الليلي" title="تبديل المظهر"><span aria-hidden="true">◐</span></button></div>
+</div></header>
