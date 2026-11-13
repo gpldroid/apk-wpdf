@@ -1,10 +1,16 @@
 package online.wpdf.app;
 
 import android.app.DownloadManager;
+import android.content.ContentValues;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Build;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.webkit.JavascriptInterface;
+import java.io.OutputStream;
 import android.os.Environment;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
@@ -61,7 +67,14 @@ public class MainActivity extends AppCompatActivity {
         CookieManager.getInstance().setAcceptCookie(true);
         CookieManager.getInstance().setAcceptThirdPartyCookies(webView, false);
 
+        webView.addJavascriptInterface(new BlobDownloadBridge(), "AndroidDownload");
+
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                installBlobDownloadSupport(view);
+            }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl();
