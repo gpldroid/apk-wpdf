@@ -1,0 +1,32 @@
+---
+const { tool } = Astro.props;
+---
+<section class="tool-runtime container" id="tool">
+  <div class="runtime-intro">
+    <div><span class="section-kicker">معالجة مباشرة داخل المتصفح</span><h2>ابدأ {tool.name}</h2><p>اختر الملف من جهازك، نفّذ العملية، ثم نزّل النتيجة. لا تغلق الصفحة أثناء المعالجة.</p></div>
+    <button class="button button-primary" type="button" onclick={"openTool('" + tool.id + "')"}>فتح أداة المعالجة</button>
+  </div>
+  <div class="runtime-note"><strong>قبل البدء:</strong> احتفظ بنسخة من ملفك الأصلي، وتأكد من مراجعة النتيجة بعد التنزيل.</div>
+</section>
+<div id="toolsGrid" hidden></div>
+<button id="langBtn" type="button" hidden>EN</button><button id="themeBtn" type="button" hidden>Theme</button>
+<div id="toast" class="runtime-toast translate-y-20 opacity-0 pointer-events-none"><span id="toastIcon"></span><span id="toastMsg"></span></div>
+<div id="cookieBanner" class="runtime-cookie translate-y-full"><span id="cookieText"></span><button type="button" onclick="acceptCookies()">موافق</button></div>
+<div id="pageModal" class="modal-hidden runtime-overlay"><section class="runtime-dialog"><button type="button" onclick="closePage()">إغلاق</button><h2 id="pageTitle"></h2><div id="pageContent"></div></section></div>
+<form id="contactForm" hidden></form>
+<div id="modal" class="modal-hidden runtime-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <section class="runtime-dialog runtime-tool-dialog">
+    <div class="runtime-dialog-head"><div><span class="section-kicker">World PDF</span><h2 id="modalTitle">{tool.name}</h2></div><button type="button" class="runtime-close" onclick="document.getElementById('modal').classList.add('modal-hidden')">إغلاق</button></div>
+    <div class="runtime-dropzone" id="dropzone" role="button" tabindex="0"><span class="runtime-upload-icon">↑</span><strong>اختر الملفات أو اسحبها وأفلتها هنا</strong><small id="dropSubtitle">الصيغ المدعومة: PDF فقط</small><input id="fileInput" type="file" hidden /></div>
+    <div id="fileList" class="runtime-file-list"></div><div id="toolControls" class="runtime-controls hidden"></div>
+    <p id="statusText" class="runtime-status" aria-live="polite"></p>
+    <div id="resultBox" class="runtime-result hidden"><span>اكتملت المعالجة. يمكنك تنزيل الملف الناتج.</span><button id="downloadBtn" type="button" class="button button-outline">تنزيل النتيجة</button></div>
+    <button id="actionBtn" type="button" class="button button-primary runtime-action"><span id="actionBtnText">تنفيذ العملية</span></button>
+  </section>
+</div>
+<button id="backTop" class="runtime-backtop opacity-0 pointer-events-none" type="button" aria-label="العودة إلى الأعلى">↑</button>
+<script src="https://cdn.tailwindcss.com" defer></script>
+<script src="/assets/js/app.js" defer></script>
+<style>
+.tool-runtime{padding:28px 0 48px}.runtime-intro{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}.runtime-intro h2{margin:5px 0;font-size:1.5rem;font-weight:900}.runtime-intro p{margin:0;color:var(--muted)}.runtime-note{margin-top:14px;padding:14px 18px;border-radius:12px;background:var(--surface-soft);color:var(--muted);font-size:.9rem}.runtime-note strong{color:var(--ink)}.runtime-overlay{position:fixed;z-index:120;inset:0;display:grid;place-items:center;padding:18px;background:rgba(15,23,42,.68);overflow:auto}.runtime-overlay.modal-hidden{display:none}.runtime-dialog{width:min(620px,100%);max-height:min(90vh,850px);overflow:auto;padding:25px;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);box-shadow:0 25px 80px rgba(0,0,0,.25)}.runtime-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.runtime-dialog-head h2{margin:4px 0;font-size:1.35rem}.runtime-close,.runtime-dialog>button:not(.button){border:1px solid var(--line);border-radius:9px;padding:8px 12px;background:var(--surface);color:var(--ink)}.runtime-dropzone{display:flex;min-height:190px;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:2px dashed #cbd5e1;border-radius:16px;background:var(--surface-soft);text-align:center;cursor:pointer;padding:24px}.runtime-dropzone:hover{border-color:var(--primary)}.runtime-upload-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--primary-soft);color:var(--primary);font-size:1.8rem}.runtime-dropzone small{color:var(--muted)}.runtime-file-list{display:grid;gap:8px;margin-top:14px}.runtime-controls{margin-top:16px}.runtime-controls input,.runtime-controls select{width:100%;margin-top:7px;padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink)}.runtime-status{min-height:24px;margin:12px 0;color:var(--muted);font-size:.9rem}.runtime-action{width:100%;margin-top:8px}.runtime-result{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid #86efac;border-radius:12px;background:#f0fdf4;color:#166534}.runtime-toast{position:fixed;z-index:150;bottom:24px;left:24px;display:flex;gap:10px;padding:13px 18px;border-radius:12px;background:#172033;color:#fff;transition:.2s}.runtime-cookie{position:fixed;z-index:130;bottom:0;inset-inline:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 22px;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 30px rgba(15,23,42,.1);transition:.2s}.runtime-cookie button{border:0;border-radius:8px;padding:8px 16px;background:var(--primary);color:#fff}.runtime-backtop{position:fixed;z-index:70;bottom:90px;right:20px;width:42px;height:42px;border:0;border-radius:50%;background:var(--primary);color:#fff;font-size:1.3rem}.runtime-backtop.opacity-0{opacity:0}.runtime-backtop.pointer-events-none{pointer-events:none}.hidden{display:none!important}.translate-y-full{transform:translateY(110%)}.translate-y-20{transform:translateY(5rem)}.opacity-0{opacity:0}.pointer-events-none{pointer-events:none}@media(max-width:600px){.runtime-intro{align-items:flex-start;flex-direction:column;padding:20px}.runtime-dialog{padding:18px}.runtime-cookie{align-items:flex-start;flex-direction:column}.runtime-result{align-items:flex-start;flex-direction:column}.runtime-toast{left:12px;right:12px;bottom:88px}}
+</style>

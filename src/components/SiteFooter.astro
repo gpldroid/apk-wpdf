@@ -1,15 +1,10 @@
 ---
 import { tools } from '../data/tools.js';
+import { footerNavigation } from '../data/navigation.js';
 ---
-<footer class="site-footer">
-  <div class="container footer-main">
-    <div class="footer-about">
-      <a class="brand brand-footer" href="/"><img src="/assets/icons/icon.svg" width="42" height="42" alt="" /><span>World <b>PDF</b></span></a>
-      <p>أدوات مجانية وعملية للتعامل مع ملفات PDF، مع شروحات واضحة وصفحات مخصصة لكل خدمة.</p>
-    </div>
-    <div class="footer-links"><h2>الأدوات</h2><a href="/tools/">جميع الأدوات</a>{tools.slice(0,4).map(tool => <a href={`/tools/${tool.slug}/`}>{tool.name}</a>)}</div>
-    <div class="footer-links"><h2>الموقع</h2><a href="/#how-it-works">طريقة الاستخدام</a><a href="/about/">عن الموقع</a><a href="/contact/">اتصل بنا</a><a href="/workspace/">مساحة المعالجة</a></div>
-    <div class="footer-links"><h2>معلومات</h2><a href="/privacy/">سياسة الخصوصية</a><a href="/terms/">شروط الاستخدام</a> <a href="/sitemap.xml">خريطة الموقع</a></div>
-  </div>
-  <div class="container footer-bottom"><span>© {new Date().getFullYear()} World PDF. جميع الحقوق محفوظة.</span><span>أدوات PDF مجانية للاستخدام اليومي.</span></div>
-</footer>
+<footer class="site-footer"><div class="container footer-main">
+<div class="footer-about"><a class="brand brand-footer" href="/"><img src="/assets/icons/icon.svg" width="42" height="42" alt="" /><span>World <b>PDF</b></span></a><p>أدوات مجانية وعملية للتعامل مع ملفات PDF، مع شروحات واضحة وصفحات مخصصة لكل خدمة.</p></div>
+<div class="footer-links"><h2>الأدوات</h2><a href="/tools/">جميع الأدوات ({tools.length})</a>{tools.slice(0,4).map(tool => <a href={`/tools/${tool.slug}/`}>{tool.name}</a>)}</div>
+<div class="footer-links"><h2>الموقع</h2><a href="/#how-it-works">طريقة الاستخدام</a><a href="/pdf-editor.html">محرر PDF</a><a href="/about/">عن الموقع</a><a href="/contact/">اتصل بنا</a></div>
+<div class="footer-links"><h2>معلومات</h2>{footerNavigation.filter(item => item.href !== '/about/' && item.href !== '/contact/').map(item => <a href={item.href}>{item.label}</a>)}</div>
+</div><div class="container footer-bottom"><span>© {new Date().getFullYear()} World PDF. جميع الحقوق محفوظة.</span><span>أدوات PDF مجانية للاستخدام اليومي.</span></div></footer>
