@@ -1,4 +1,5 @@
 name: Build World PDF Android APK
+# Manual dispatch is available for verifying release signing after repository secrets are added.
 
 on:
   push:
