@@ -12,14 +12,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+          cache: npm
+      - run: npm ci
       - run: npm test
       - run: npm run build
-      - name: Verify generated website
+      - name: Verify generated website and all public assets
         run: |
           test -f dist/index.html
+          test -f dist/tools/index.html
           test -f dist/tools/merge-pdf/index.html
+          test -f dist/tools/split-pdf/index.html
           test -f dist/tools/pdf-to-word/index.html
+          test -f dist/workspace/index.html
+          test -f dist/pdf-editor.html
           test -f dist/ads.txt
           test -f dist/googledd5a51d8de510678.html
           test -f dist/CNAME
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          test -f dist/assets/js/analytics.js
