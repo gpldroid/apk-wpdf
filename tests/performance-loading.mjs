@@ -4,6 +4,7 @@ const runner=fs.readFileSync('src/components/tools/ToolRuntime.astro','utf8');
 const app=fs.readFileSync('public/assets/js/app.js','utf8');
 const sw=fs.readFileSync('public/sw.js','utf8');
 for(const library of ['pdf-lib','pdf.min.js','xlsx.full.min.js','jspdf.umd.min.js','docx','pptxgen.min.js','jszip']) assert.ok(!runner.includes(library), `${library} must not load in the initial tool page`);
+assert.ok(runner.includes('<script src="https://cdn.tailwindcss.com" defer></script>'),'Tailwind runtime must be deferred');
 assert.ok(runner.includes('<script src="/assets/js/app.js" defer></script>'),'Tool runtime must load the app script with defer');
 for(const loader of ['ensurePdfLib','ensurePdfJs','processWord','processExcel','processPPT']) assert.ok(app.includes(loader), `${loader} lazy loader must exist`);
 assert.ok(app.includes('SCRIPT_LOADS = new Map()'),'Concurrent library requests must be deduplicated');
