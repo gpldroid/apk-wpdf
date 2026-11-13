@@ -1,7 +1,7 @@
 import { tools } from '../data/tools.js';
 
 const base = 'https://wpdf.online';
-const staticPaths = ['/', '/tools/', '/privacy/', '/terms/'];
+const staticPaths = ['/', '/tools/', '/about/', '/contact/', '/privacy/', '/terms/'];
 const paths = [...staticPaths, ...tools.map(tool => `/tools/${tool.slug}/`)];
 export const prerender = true;
 

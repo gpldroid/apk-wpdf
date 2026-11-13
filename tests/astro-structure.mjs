@@ -19,3 +19,15 @@ assert.ok(sitemap.includes('tools.map'), 'Sitemap must be generated from the too
 const home = fs.readFileSync('src/pages/index.astro', 'utf8');
 for (const section of ['how-it-works', 'about', 'contact', 'tools']) assert.ok(home.includes(section), `Homepage must include ${section}`);
 console.log('Astro structure, tool coverage and SEO integration checks passed.');
+
+for (const page of ['about.astro', 'contact.astro']) assert.ok(fs.existsSync(`src/pages/${page}`), `Core page ${page} must exist`);
+const footer = fs.readFileSync('src/components/SiteFooter.astro', 'utf8');
+assert.ok(!footer.includes('ads.txt'), 'ads.txt must not be promoted as a visitor navigation link');
+assert.ok(!footer.includes('/#contact') && footer.includes('/contact/'), 'Footer contact link must resolve to a real page');
+assert.ok(footer.includes('/about/'), 'Footer about link must resolve to a real page');
+const workspace = fs.readFileSync('public/workspace/index.html', 'utf8');
+assert.ok(!workspace.includes('ملفاتك تبقى آمنة ومحلية على جهازك'), 'Remove the unwanted local-file claim from workspace');
+assert.ok(!workspace.includes('href="#"'), 'Workspace must not contain placeholder hash links');
+assert.ok(!workspace.includes('javascript:void(0)'), 'Workspace navigation must use real page URLs');
+const sitemapRoutes = fs.readFileSync('src/pages/sitemap.xml.ts', 'utf8');
+assert.ok(sitemapRoutes.includes("'/about/'") && sitemapRoutes.includes("'/contact/'"), 'Sitemap must include all core pages');

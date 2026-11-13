@@ -63,7 +63,7 @@ const APP = {
         const dict = {
             ar: {
                 navTools: "الأدوات", navAbout: "من نحن", navPrivacy: "سياسة الخصوصية", navTerms: "شروط الاستخدام", navContact: "اتصل بنا", btnTools: "استخدم الأدوات",
-                heroBadge: "معالجة محلية آمنة 100%", heroTitle: "أدوات PDF تعمل فوراً", heroDesc: "دمج، تقسيم، ضغط وتحويل ملفات PDF مباشرة من متصفحك. أمان تام حيث لا يتم رفع ملفاتك إلى أي خادم، مما يضمن خصوصيتك.", heroBtn: "تصفح الأدوات المجانية",
+                heroBadge: "أدوات PDF في مكان واحد", heroTitle: "أدوات PDF تعمل فوراً", heroDesc: "ادمج ملفات PDF أو قسّمها أو اضغطها أو حوّلها باستخدام الأدوات المتاحة. راجع تفاصيل كل أداة لمعرفة الوظائف المدعومة.", heroBtn: "تصفح الأدوات المجانية",
                 filterAll: "الكل", filterOrg: "تنظيم", filterOpt: "تحسين", filterToPDF: "إلى PDF", filterFromPDF: "من PDF", filterSec: "الأمان",
                 
                 // About & Contact Additions
@@ -76,7 +76,7 @@ const APP = {
                 // Footer & Cookies
                 footerDesc: "منصتك المجانية والأكثر أماناً لمعالجة ملفات PDF مباشرة عبر متصفحك. لا مساومة على خصوصية بياناتك.",
                 footerLinks: "روابط قانونية", footerSupport: "الدعم والمساعدة", copyright: "© 2026 جميع الحقوق محفوظة — World PDF",
-                cookieMsg: "نستخدم ملفات تعريف الارتباط (Cookies) لتحسين تجربتك على موقعنا وعرض إعلانات مخصصة وتحليل الزيارات. للمزيد من التفاصيل، يرجى مراجعة <a href='javascript:void(0)' onclick='openPage(\"privacy\")' class='text-primary hover:underline font-bold'>سياسة الخصوصية</a>.",
+                cookieMsg: "نستخدم ملفات تعريف الارتباط (Cookies) لتحسين تجربتك على موقعنا وعرض إعلانات مخصصة وتحليل الزيارات. للمزيد من التفاصيل، يرجى مراجعة <a href='/privacy/' class='text-primary hover:underline font-bold'>سياسة الخصوصية</a>.",
                 cookieAccept: "موافق", cookieDecline: "إغلاق",
                 
                 // App Text
@@ -123,7 +123,7 @@ const APP = {
             },
             en: {
                 navTools: "Tools", navAbout: "About Us", navPrivacy: "Privacy Policy", navTerms: "Terms of Use", navContact: "Contact", btnTools: "Use Tools",
-                heroBadge: "100% Secure Local Processing", heroTitle: "Instant PDF Tools", heroDesc: "Merge, split, compress, and convert PDFs directly in your browser. Total privacy—your files are never uploaded to any server.", heroBtn: "Explore Free Tools",
+                heroBadge: "PDF tools in one place", heroTitle: "Instant PDF Tools", heroDesc: "Merge, split, compress, and convert PDF files with the available tools. Check each tool page for supported features and requirements.", heroBtn: "Explore Free Tools",
                 filterAll: "All", filterOrg: "Organize", filterOpt: "Optimize", filterToPDF: "To PDF", filterFromPDF: "From PDF", filterSec: "Security",
                 
                 aboutTitle: "About World PDF",
@@ -134,7 +134,7 @@ const APP = {
                 
                 footerDesc: "Your secure, free platform for processing PDFs directly in your browser. No compromise on your data privacy.",
                 footerLinks: "Legal Links", footerSupport: "Support & Help", copyright: "© 2026 All Rights Reserved — World PDF",
-                cookieMsg: "We use cookies to improve your experience, serve personalized ads, and analyze traffic. For more details, please review our <a href='javascript:void(0)' onclick='openPage(\"privacy\")' class='text-primary hover:underline font-bold'>Privacy Policy</a>.",
+                cookieMsg: "We use cookies to improve your experience, serve personalized ads, and analyze traffic. For more details, please review our <a href='/privacy/' class='text-primary hover:underline font-bold'>Privacy Policy</a>.",
                 cookieAccept: "Accept", cookieDecline: "Close",
                 
                 dropTitle: "Choose files or drag & drop here", dropSubPDF: "Supported formats: PDF only", dropSubImg: "Supported formats: JPG, PNG, WebP", dropSubExcel: "Supported formats: XLSX, XLS",
