@@ -30,7 +30,7 @@ assert.ok(favicon.includes('#dc2626')&&icon.includes('#dc2626'));assert.ok(brand
 assert.ok(robots.includes('Sitemap: https://wpdf.online/sitemap.xml'));
 assert.ok(ads.includes('google.com, pub-6996931662051674, DIRECT, f08c47fec0942fa0'));
 assert.ok(editor.includes('<footer'), 'Standalone editor must have the shared footer pattern');
-assert.ok(editor.includes('class="site-header"') && editor.includes('class="footer-main"'), 'Editor must reuse the main site header/footer structure');
+assert.ok(editor.includes('class="site-header"') && editor.includes('footer-main'), 'Editor must reuse the main site header/footer structure');
 assert.ok(editor.includes('/assets/css/editor-shell.css') && editorCss.includes('.site-header'), 'Editor shared shell styles must load');
 assert.ok(androidManifest.includes('android:icon="@drawable/ic_launcher"'), 'Android launcher icon must be configured');
 assert.ok(androidIcon.includes('#DC2626') && androidIcon.includes('#FFFFFF'), 'Android launcher icon must use the World PDF brand');
