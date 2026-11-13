@@ -13,6 +13,7 @@ const layout = fs.readFileSync('src/layouts/SiteLayout.astro', 'utf8');
 for (const token of ['ca-pub-6996931662051674', 'GTM-KC52SRXL', 'google-site-verification', '/assets/js/analytics.js', 'canonical', 'og:image']) {
   assert.ok(layout.includes(token), `Shared layout must include ${token}`);
 }
+assert.ok(fs.existsSync('src/pages/404.astro'), 'A branded Astro 404 page must exist');
 const sitemap = fs.readFileSync('src/pages/sitemap.xml.ts', 'utf8');
 assert.ok(sitemap.includes('tools.map'), 'Sitemap must be generated from the tool source of truth');
 const home = fs.readFileSync('src/pages/index.astro', 'utf8');
