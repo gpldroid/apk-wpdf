@@ -32,6 +32,8 @@ jobs:
           test -f dist/tools/split-pdf/index.html
           test -f dist/tools/pdf-to-word/index.html
           test -f dist/tools/pdf-page-numbers/index.html
+          test -f dist/about/index.html
+          test -f dist/contact/index.html
           test -f dist/privacy/index.html
           test -f dist/terms/index.html
           test -f dist/workspace/index.html
