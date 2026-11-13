@@ -10,6 +10,14 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/android-apk.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - '.github/workflows/android-apk.yml'
   workflow_dispatch:
 
 permissions:
