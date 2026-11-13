@@ -20,10 +20,12 @@ for (const page of ['about', 'contact', 'privacy', 'terms']) {
 const header = fs.readFileSync('src/components/SiteHeader.astro', 'utf8');
 const footer = fs.readFileSync('src/components/SiteFooter.astro', 'utf8');
 const mobileNav = fs.readFileSync('src/components/MobileTabBar.astro', 'utf8');
+const navigation = fs.readFileSync('src/data/navigation.js', 'utf8');
 for (const [name, source] of [['header', header], ['footer', footer], ['mobile navigation', mobileNav]]) {
-  assert.ok(source.includes('/about/'), name + ' must link to About page');
   assert.ok(!source.includes('/workspace/'), name + ' must not link to removed workspace');
 }
+assert.ok(navigation.includes('/about/') && navigation.includes('/tools/') && navigation.includes('/pdf-editor.html'), 'Central navigation data must include the main destinations');
+assert.ok(header.includes('primaryNavigation') && footer.includes('footerNavigation') && mobileNav.includes('mobileNavigation'), 'Navigation components must use the shared navigation source');
 assert.ok(footer.includes('/contact/'), 'Footer must link to Contact page');
 assert.ok(!footer.includes('/ads.txt'), 'ads.txt must not be linked in the footer');
 assert.ok(fs.existsSync('public/ads.txt'), 'AdSense ads.txt file must be retained');
