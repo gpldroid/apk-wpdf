@@ -123,9 +123,9 @@
             
             <nav class="hidden md:flex gap-6 text-sm font-medium" id="navLinks">
                 <a href="#tools" class="hover:text-primary transition-colors" data-i18n="navTools">الأدوات</a>
-                <a href="#about" class="hover:text-primary transition-colors" data-i18n="navAbout">عن الموقع</a>
-                <a href="javascript:void(0)" onclick="openPage('privacy')" class="hover:text-primary transition-colors" data-i18n="navPrivacy">الخصوصية</a>
-                <a href="#contact" class="hover:text-primary transition-colors" data-i18n="navContact">اتصل بنا</a>
+                <a href="/about/" class="hover:text-primary transition-colors" data-i18n="navAbout">عن الموقع</a>
+                <a href="/privacy/" class="hover:text-primary transition-colors" data-i18n="navPrivacy">الخصوصية</a>
+                <a href="/contact/" class="hover:text-primary transition-colors" data-i18n="navContact">اتصل بنا</a>
             </nav>
 
             <div class="flex items-center gap-3">
@@ -147,13 +147,13 @@
         <div class="max-w-4xl mx-auto px-4 py-20 text-center relative z-10">
             <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full px-4 py-1.5 text-sm font-medium mb-6 shadow-lg">
                 <i class="fa-solid fa-shield-halved text-yellow-300"></i>
-                <span data-i18n="heroBadge">ملفاتك تبقى آمنة ومحلية على جهازك</span>
+                <span data-i18n="heroBadge">أدوات PDF في مكان واحد</span>
             </div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight drop-shadow-md" data-i18n="heroTitle">
                 أدوات PDF تعمل فوراً
             </h1>
             <p class="text-lg md:text-xl text-red-100 mb-8 max-w-2xl mx-auto font-medium" data-i18n="heroDesc">
-                دمج، تقسيم، ضغط، تحويل وتنظيم ملفات PDF مباشرة من متصفحك. أمان تام حيث لا يتم رفع ملفاتك إلى أي خادم، مما يجعلنا الأداة الأسرع والأكثر أماناً.
+                دمج وتقسيم وضغط وتحويل وتنظيم ملفات PDF من خلال واجهة واحدة سهلة الاستخدام.
             </p>
             <div class="flex flex-wrap justify-center gap-4 font-bold">
                 <a href="#tools" class="bg-white text-red-700 hover:bg-gray-100 px-8 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
@@ -239,15 +239,15 @@
                 <div>
                     <h3 class="font-bold mb-4 text-gray-800 dark:text-gray-200" data-i18n="footerLinks">روابط هامة</h3>
                     <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><a href="javascript:void(0)" onclick="openPage('terms')" class="hover:text-primary transition-colors" data-i18n="navTerms">شروط الاستخدام</a></li>
-                        <li><a href="javascript:void(0)" onclick="openPage('privacy')" class="hover:text-primary transition-colors" data-i18n="navPrivacy">سياسة الخصوصية</a></li>
-                        <li><a href="#about" class="hover:text-primary transition-colors" data-i18n="navAbout">من نحن</a></li>
+                        <li><a href="/terms/" class="hover:text-primary transition-colors" data-i18n="navTerms">شروط الاستخدام</a></li>
+                        <li><a href="/privacy/" class="hover:text-primary transition-colors" data-i18n="navPrivacy">سياسة الخصوصية</a></li>
+                        <li><a href="/about/" class="hover:text-primary transition-colors" data-i18n="navAbout">من نحن</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="font-bold mb-4 text-gray-800 dark:text-gray-200" data-i18n="footerSupport">الدعم والمساعدة</h3>
                     <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li><a href="#contact" class="hover:text-primary transition-colors" data-i18n="navContact">تواصل معنا</a></li>
+                        <li><a href="/contact/" class="hover:text-primary transition-colors" data-i18n="navContact">تواصل معنا</a></li>
                         <li class="flex items-center gap-2"><i class="fa-regular fa-envelope"></i> info@larache.xyz</li>
                     </ul>
                 </div>
@@ -255,9 +255,8 @@
             <div class="text-center text-sm text-gray-500 dark:text-gray-500 pt-6 border-t border-gray-200 dark:border-darkBorder flex flex-col sm:flex-row justify-between items-center gap-4">
                 <span data-i18n="copyright"> عماد لمراني © 2026 جميع الحقوق محفوظة — World PDF</span>
                 <div class="flex gap-5 text-xl">
-                    <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" class="hover:text-primary transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="/about/" class="hover:text-primary transition-colors">عن الموقع</a>
+                    <a href="/contact/" class="hover:text-primary transition-colors">اتصل بنا</a>
                 </div>
             </div>
         </div>
@@ -353,5 +352,5 @@
     </script>
 
 <script src="/assets/js/analytics.js" defer></script>
-<nav class="wpdf-mobile-tabbar" aria-label="التنقل السريع"><a href="/" aria-label="الرئيسية"><span>⌂</span><small>الرئيسية</small></a><a href="/tools/" aria-label="الأدوات"><span>▦</span><small>الأدوات</small></a><a href="/workspace/" aria-label="مساحة المعالجة"><span>⇧</span><small>المعالجة</small></a><a href="/#about" aria-label="عن الموقع"><span>ⓘ</span><small>حول</small></a></nav></body>
+<nav class="wpdf-mobile-tabbar" aria-label="التنقل السريع"><a href="/" aria-label="الرئيسية"><span>⌂</span><small>الرئيسية</small></a><a href="/tools/" aria-label="الأدوات"><span>▦</span><small>الأدوات</small></a><a href="/workspace/" aria-label="مساحة المعالجة"><span>⇧</span><small>المعالجة</small></a><a href="/about/" aria-label="عن الموقع"><span>ⓘ</span><small>حول</small></a></nav></body>
 </html>
