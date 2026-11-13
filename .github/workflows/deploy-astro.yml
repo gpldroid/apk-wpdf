@@ -27,6 +27,8 @@ jobs:
         run: |
           test -f dist/index.html
           test -f dist/404.html
+          test -f dist/about/index.html
+          test -f dist/contact/index.html
           test -f dist/tools/index.html
           test -f dist/tools/merge-pdf/index.html
           test -f dist/tools/split-pdf/index.html

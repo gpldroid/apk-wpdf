@@ -5,11 +5,11 @@ import { tools } from '../data/tools.js';
   <div class="container footer-main">
     <div class="footer-about">
       <a class="brand brand-footer" href="/"><img src="/assets/icons/icon.svg" width="42" height="42" alt="" /><span>World <b>PDF</b></span></a>
-      <p>أدوات عملية للتعامل مع ملفات PDF مباشرة من المتصفح. نهدف إلى جعل المهام اليومية أبسط مع إبقاء معالجة الملفات على جهازك في الأدوات التي تدعم ذلك.</p>
+      <p>أدوات عملية للتعامل مع ملفات PDF، مع صفحات توضح الوظائف المتاحة وخطوات الاستخدام.</p>
     </div>
     <div class="footer-links"><h2>الأدوات</h2><a href="/tools/">جميع الأدوات</a>{tools.slice(0,4).map(tool => <a href={`/tools/${tool.slug}/`}>{tool.name}</a>)}</div>
     <div class="footer-links"><h2>الموقع</h2><a href="/#how-it-works">طريقة الاستخدام</a><a href="/about/">عن الموقع</a><a href="/contact/">اتصل بنا</a><a href="/workspace/">مساحة المعالجة</a></div>
     <div class="footer-links"><h2>معلومات</h2><a href="/privacy/">سياسة الخصوصية</a><a href="/terms/">شروط الاستخدام</a><a href="/sitemap.xml">خريطة الموقع</a></div>
   </div>
-  <div class="container footer-bottom"><span>© {new Date().getFullYear()} World PDF. جميع الحقوق محفوظة.</span><span>معالجة محلية في المتصفح حيثما كانت مدعومة.</span></div>
+  <div class="container footer-bottom"><span>© {new Date().getFullYear()} World PDF. جميع الحقوق محفوظة.</span><span>واجهة واحدة للمهام اليومية على ملفات PDF.</span></div>
 </footer>
