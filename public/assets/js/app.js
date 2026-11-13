@@ -63,13 +63,13 @@ const APP = {
         const dict = {
             ar: {
                 navTools: "الأدوات", navAbout: "من نحن", navPrivacy: "سياسة الخصوصية", navTerms: "شروط الاستخدام", navContact: "اتصل بنا", btnTools: "استخدم الأدوات",
-                heroBadge: "معالجة محلية آمنة 100%", heroTitle: "أدوات PDF تعمل فوراً", heroDesc: "دمج، تقسيم، ضغط وتحويل ملفات PDF مباشرة من متصفحك. أمان تام حيث لا يتم رفع ملفاتك إلى أي خادم، مما يضمن خصوصيتك.", heroBtn: "تصفح الأدوات المجانية",
+                heroBadge: "أدوات PDF في مكان واحد", heroTitle: "أدوات PDF تعمل فوراً", heroDesc: "دمج، تقسيم، ضغط وتحويل ملفات PDF مباشرة من متصفحك عبر واجهة واحدة سهلة الاستخدام.", heroBtn: "تصفح الأدوات المجانية",
                 filterAll: "الكل", filterOrg: "تنظيم", filterOpt: "تحسين", filterToPDF: "إلى PDF", filterFromPDF: "من PDF", filterSec: "الأمان",
                 
                 // About & Contact Additions
                 aboutTitle: "عن World PDF",
                 aboutDesc1: "World PDF هي منصة احترافية مجانية بالكامل، صُممت لتوفير أسهل وأسرع أدوات لمعالجة ملفات PDF مباشرة من متصفحك الإلكتروني دون الحاجة لتثبيت أي برامج أو إنشاء حساب.",
-                aboutDesc2: "نحن نولي أهمية قصوى لخصوصيتك؛ تعتمد تقنياتنا على معالجة الملفات محلياً داخل جهازك (Client-side)، مما يعني أن مستنداتك لا تغادر متصفحك ولا تُخزن على أي خوادم خارجية إطلاقاً.",
+                aboutDesc2: "نوضح في صفحات الموقع طبيعة الأدوات والخدمات الخارجية وطريقة استخدامها، ويمكنك مراجعة سياسة الخصوصية لمعرفة التفاصيل.",
                 contactTitle: "تواصل معنا", contactDesc: "هل لديك استفسار، اقتراح، أو واجهت مشكلة تقنية؟ يسعدنا تواصلك معنا وسنقوم بالرد في أقرب وقت.",
                 formName: "الاسم الكامل", formEmail: "البريد الإلكتروني", formMsg: "رسالتك...", formBtn: "إرسال الرسالة", formSuccess: "تم إرسال رسالتك بنجاح! شكراً لتواصلك معنا.",
                 
@@ -123,12 +123,12 @@ const APP = {
             },
             en: {
                 navTools: "Tools", navAbout: "About Us", navPrivacy: "Privacy Policy", navTerms: "Terms of Use", navContact: "Contact", btnTools: "Use Tools",
-                heroBadge: "100% Secure Local Processing", heroTitle: "Instant PDF Tools", heroDesc: "Merge, split, compress, and convert PDFs directly in your browser. Total privacy—your files are never uploaded to any server.", heroBtn: "Explore Free Tools",
+                heroBadge: "PDF tools in one place", heroTitle: "Instant PDF Tools", heroDesc: "Merge, split, compress, and convert PDF files through one easy-to-use interface.", heroBtn: "Explore Free Tools",
                 filterAll: "All", filterOrg: "Organize", filterOpt: "Optimize", filterToPDF: "To PDF", filterFromPDF: "From PDF", filterSec: "Security",
                 
                 aboutTitle: "About World PDF",
                 aboutDesc1: "World PDF is a completely free, professional platform designed to provide the easiest and fastest tools for processing PDF files directly in your web browser without installing any software or creating an account.",
-                aboutDesc2: "We prioritize your privacy; our technology relies on Client-side Processing, meaning your sensitive documents never leave your browser and are not stored on any external servers.",
+                aboutDesc2: "Our information pages explain the tools, third-party services, and how the website is used. Please review the Privacy Policy for details.",
                 contactTitle: "Contact Us", contactDesc: "Have a question, suggestion, or encountered a technical issue? We'd love to hear from you. Fill out the form below and we'll reply ASAP.",
                 formName: "Full Name", formEmail: "Email Address", formMsg: "Your Message...", formBtn: "Send Message", formSuccess: "Your message has been sent successfully! Thank you for contacting us.",
                 
