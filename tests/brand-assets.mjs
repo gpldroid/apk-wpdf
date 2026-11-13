@@ -1,34 +1,26 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-
-const [html, manifestText, sw, favicon, icon, brand, og] = await Promise.all([
-  readFile(new URL('../index.html', import.meta.url), 'utf8'),
-  readFile(new URL('../manifest.webmanifest', import.meta.url), 'utf8'),
-  readFile(new URL('../sw.js', import.meta.url), 'utf8'),
-  readFile(new URL('../favicon.svg', import.meta.url), 'utf8'),
-  readFile(new URL('../assets/icons/icon.svg', import.meta.url), 'utf8'),
-  readFile(new URL('../assets/icons/brand.svg', import.meta.url), 'utf8'),
-  readFile(new URL('../assets/icons/og-image.svg', import.meta.url), 'utf8')
+import {readFile} from 'node:fs/promises';
+const [layout,manifestText,sw,favicon,icon,brand,og,robots,workspace]=await Promise.all([
+ readFile(new URL('../src/layouts/SiteLayout.astro',import.meta.url),'utf8'),
+ readFile(new URL('../public/manifest.webmanifest',import.meta.url),'utf8'),
+ readFile(new URL('../public/sw.js',import.meta.url),'utf8'),
+ readFile(new URL('../public/favicon.svg',import.meta.url),'utf8'),
+ readFile(new URL('../public/assets/icons/icon.svg',import.meta.url),'utf8'),
+ readFile(new URL('../public/assets/icons/brand.svg',import.meta.url),'utf8'),
+ readFile(new URL('../public/assets/icons/og-image.svg',import.meta.url),'utf8'),
+ readFile(new URL('../public/robots.txt',import.meta.url),'utf8'),
+ readFile(new URL('../public/workspace/index.html',import.meta.url),'utf8')
 ]);
-const manifest = JSON.parse(manifestText);
-assert.match(html, /rel="canonical" href="https:\/\/www\.wpdf\.online\//);
-assert.match(html, /rel="icon" href="\/favicon\.svg"/);
-assert.match(html, /rel="manifest" href="\/manifest\.webmanifest"/);
-assert.match(html, /GTM-KC52SRXL/);
-assert.match(html, /navigator\.serviceWorker\.register\('\/sw\.js'\)/);
-assert.match(html, /\/assets\/icons\/icon\.svg/);
-const tailwindConfigAt = html.indexOf('window.tailwind.config');
-const tailwindRuntimeAt = html.indexOf('https://cdn.tailwindcss.com');
-assert.ok(tailwindConfigAt >= 0 && tailwindRuntimeAt > tailwindConfigAt, 'Tailwind config must be declared before its CDN runtime');
-assert.match(html.slice(tailwindRuntimeAt, tailwindRuntimeAt + 100), /defer/, 'Tailwind CDN should remain deferred after its config is declared');
-assert.equal(manifest.name, 'World PDF');
-assert.equal(manifest.start_url, '/');
-assert.equal(manifest.theme_color, '#dc2626');
-assert.equal(manifest.icons[0].src, '/assets/icons/icon.svg');
-assert.match(sw, /wpdf-shell-v5/);
-assert.match(sw, /\/manifest\.webmanifest/);
-assert.match(favicon, /#dc2626/);
-assert.match(icon, /#dc2626/);
-assert.match(brand, /World PDF/);
-assert.match(og, /www\.wpdf\.online/);
-console.log('Brand assets, metadata, PWA and Tailwind load-order checks passed.');
+const manifest=JSON.parse(manifestText);
+assert.ok(layout.includes('https://wpdf.online'));
+assert.ok(layout.includes('href="/favicon.svg"'));
+assert.ok(layout.includes('href="/manifest.webmanifest"'));
+assert.ok(layout.includes('GTM-KC52SRXL'));
+assert.ok(layout.includes('ca-pub-6996931662051674'));
+assert.ok(layout.includes('google-site-verification'));
+assert.equal(manifest.name,'World PDF');assert.equal(manifest.start_url,'/');assert.equal(manifest.theme_color,'#dc2626');assert.equal(manifest.icons[0].src,'/assets/icons/icon.svg');
+assert.ok(sw.includes('wpdf-astro-v1')&&sw.includes('/manifest.webmanifest'));
+assert.ok(favicon.includes('#dc2626')&&icon.includes('#dc2626'));assert.ok(brand.includes('World PDF'));assert.ok(og.includes('wpdf.online'));
+assert.ok(robots.includes('Sitemap: https://wpdf.online/sitemap.xml'));
+assert.ok(workspace.includes('<script src="/assets/js/app.js" defer>'));
+console.log('Astro metadata, brand assets, PWA and verification checks passed.');
