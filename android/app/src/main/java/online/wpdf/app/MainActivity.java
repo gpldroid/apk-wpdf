@@ -138,6 +138,69 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void installBlobDownloadSupport(WebView view) {
+        String script = "(function(){" +
+            "if(window.__wpdfBlobDownloadInstalled)return;window.__wpdfBlobDownloadInstalled=true;" +
+            "const original=URL.createObjectURL.bind(URL);const blobs=new Map();" +
+            "URL.createObjectURL=function(blob){const u=original(blob);if(blob instanceof Blob)blobs.set(u,blob);return u;};" +
+            "document.addEventListener('click',function(e){const el=e.target instanceof Element?e.target:null;" +
+            "const a=el&&el.closest('a[download]');if(!a||!a.href.startsWith('blob:'))return;" +
+            "e.preventDefault();const send=function(b){const reader=new FileReader();reader.onloadend=function(){" +
+            "const data=String(reader.result).split(',')[1]||'';AndroidDownload.saveBase64File(a.download||'world-pdf-file',b.type||'application/octet-stream',data);};reader.readAsDataURL(b);};" +
+            "const blob=blobs.get(a.href);if(blob)send(blob);else fetch(a.href).then(r=>r.blob()).then(send);" +
+            "},true);})();";
+        view.evaluateJavascript(script, null);
+    }
+
+    private class BlobDownloadBridge {
+        @JavascriptInterface
+        public void saveBase64File(String fileName, String mimeType, String encoded) {
+            try {
+                if (encoded == null || encoded.length() > 70_000_000) {
+                    throw new IllegalArgumentException("File is too large");
+                }
+                byte[] bytes = Base64.decode(encoded, Base64.DEFAULT);
+                String safeName = fileName == null ? "world-pdf-file" : fileName;
+                safeName = safeName.replace("/", "_").replace("\\", "_")
+                    .replace(":", "_").replace("*", "_").replace("?", "_")
+                    .replace("\"", "_").replace("<", "_").replace(">", "_")
+                    .replace("|", "_");
+                if (safeName.isEmpty()) safeName = "world-pdf-file";
+                String type = mimeType == null || mimeType.isEmpty()
+                    ? "application/octet-stream" : mimeType;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Downloads.DISPLAY_NAME, safeName);
+                    values.put(MediaStore.Downloads.MIME_TYPE, type);
+                    values.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+                    values.put(MediaStore.Downloads.IS_PENDING, 1);
+                    Uri uri = getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+                    if (uri == null) throw new IllegalStateException("Cannot create download");
+                    try (OutputStream stream = getContentResolver().openOutputStream(uri)) {
+                        if (stream == null) throw new IllegalStateException("Cannot open download");
+                        stream.write(bytes);
+                    }
+                    values.clear();
+                    values.put(MediaStore.Downloads.IS_PENDING, 0);
+                    getContentResolver().update(uri, values, null, null);
+                } else {
+                    java.io.File dir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+                    if (dir == null) throw new IllegalStateException("Downloads unavailable");
+                    try (java.io.FileOutputStream stream =
+                            new java.io.FileOutputStream(new java.io.File(dir, safeName))) {
+                        stream.write(bytes);
+                    }
+                }
+                runOnUiThread(() -> Toast.makeText(MainActivity.this,
+                    "تم حفظ الملف في التنزيلات", Toast.LENGTH_LONG).show());
+            } catch (Exception e) {
+                runOnUiThread(() -> Toast.makeText(MainActivity.this,
+                    "تعذر حفظ الملف", Toast.LENGTH_SHORT).show());
+            }
+        }
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (webView != null) webView.saveState(outState);
