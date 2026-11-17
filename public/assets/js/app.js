@@ -569,18 +569,115 @@ const APP = {
             provideDownload(await p.save(), 'unlocked.pdf');
         }
 
+        function isArabicText(value) {
+            const chars = String(value || '').match(/[\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF]/g) || [];
+            const letters = String(value || '').match(/[\\p{L}]/gu) || [];
+            return chars.length > 0 && chars.length >= letters.length * 0.25;
+        }
+
+        function buildPdfTextLines(items) {
+            const positioned = items
+                .filter(item => item && typeof item.str === 'string' && item.str.trim())
+                .map(item => ({
+                    text: item.str,
+                    x: Number(item.transform && item.transform[4]) || 0,
+                    y: Number(item.transform && item.transform[5]) || 0,
+                    width: Math.abs(Number(item.width) || 0),
+                    fontSize: Math.max(7, Math.min(36, Math.abs(Number(item.transform && item.transform[3]) || 11))),
+                    fontName: String(item.fontName || '')
+                }))
+                .sort((a, b) => b.y - a.y || a.x - b.x);
+
+            const lines = [];
+            for (const item of positioned) {
+                let line = lines.find(candidate => Math.abs(candidate.y - item.y) <= Math.max(2, item.fontSize * 0.28));
+                if (!line) {
+                    line = { y: item.y, items: [] };
+                    lines.push(line);
+                }
+                line.items.push(item);
+            }
+
+            return lines
+                .sort((a, b) => b.y - a.y)
+                .map(line => {
+                    const sample = line.items.map(item => item.text).join(' ');
+                    const rtl = isArabicText(sample);
+                    line.items.sort((a, b) => rtl ? b.x - a.x : a.x - b.x);
+                    let previous = null;
+                    const runs = [];
+                    for (const item of line.items) {
+                        let value = item.text.replace(/[\\t\\r\\n]+/g, ' ').trim();
+                        if (!value) continue;
+                        if (previous) {
+                            const gap = rtl
+                                ? previous.x - (item.x + item.width)
+                                : item.x - (previous.x + previous.width);
+                            if (gap > Math.max(1.5, Math.min(previous.fontSize, item.fontSize) * 0.16) &&
+                                !/^[،؛.!?:%)\\]}]/.test(value) &&
+                                !/[([{]$/.test(previous.text)) {
+                                runs.push({ text: ' ', fontSize: item.fontSize, fontName: '' });
+                            }
+                        }
+                        runs.push(item);
+                        previous = item;
+                    }
+                    return { runs, rtl, y: line.y };
+                })
+                .filter(line => line.runs.length);
+        }
+
         async function processWord() {
             const pdfjsLib = await ensurePdfJs();
             const docx = await loadExternalScript('https://cdn.jsdelivr.net/npm/docx@9.0.0/build/index.umd.js', 'docx');
             const pdfData = new Uint8Array(await getFileBuffer(APP.files[0]));
             const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
-            let children = [];
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const pg = await pdf.getPage(i); const content = await pg.getTextContent();
-                children.push(new docx.Paragraph({ children: [new docx.TextRun(content.items.map(x => x.str).join(' '))] }));
+            const children = [];
+
+            for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+                const page = await pdf.getPage(pageNumber);
+                const textContent = await page.getTextContent();
+                const lines = buildPdfTextLines(textContent.items || []);
+
+                if (!lines.length) {
+                    children.push(new docx.Paragraph({
+                        children: [new docx.TextRun({ text: ' ' })],
+                        pageBreakBefore: pageNumber > 1
+                    }));
+                    continue;
+                }
+
+                lines.forEach((line, lineIndex) => {
+                    const runs = line.runs.map(item => {
+                        const fontName = item.fontName.toLowerCase();
+                        return new docx.TextRun({
+                            text: item.text,
+                            size: Math.round(item.fontSize * 2),
+                            bold: /bold|black|heavy|demi/.test(fontName),
+                            italics: /italic|oblique/.test(fontName),
+                            font: 'Arial'
+                        });
+                    });
+
+                    children.push(new docx.Paragraph({
+                        children: runs,
+                        bidirectional: line.rtl,
+                        alignment: line.rtl ? docx.AlignmentType.RIGHT : docx.AlignmentType.LEFT,
+                        spacing: { after: 60, line: 276 },
+                        pageBreakBefore: pageNumber > 1 && lineIndex === 0
+                    }));
+                });
             }
-            const doc = new docx.Document({ sections: [{ properties: {}, children: children }] });
-            provideDownload(await (await docx.Packer.toBlob(doc)).arrayBuffer(), 'converted.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+            const doc = new docx.Document({
+                sections: [{
+                    properties: {},
+                    children,
+                    footers: {}
+                }]
+            });
+            const blob = await docx.Packer.toBlob(doc);
+            provideDownload(await blob.arrayBuffer(), 'converted.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
         }
 
         async function processExcel() {
